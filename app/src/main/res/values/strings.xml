@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Online-store</string>
+    <string name="main">Главная</string>
+    <string name="story">История</string>
+    <string name="sell">Продать</string>
+    <string name="cart">Корзина</string>
+    <string name="profile">Профиль</string>
 </resources>
