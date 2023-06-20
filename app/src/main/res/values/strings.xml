@@ -5,4 +5,10 @@
     <string name="sell">Продать</string>
     <string name="cart">Корзина</string>
     <string name="profile">Профиль</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="filters">Фильтры</string>
+    <string name="nike_example">Nike Air Force 1\'07 Premium</string>
+    <string name="about_product">О товаре</string>
+    <string name="brand_product_category">Бренд, товар, категория</string>
 </resources>

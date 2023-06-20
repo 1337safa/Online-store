@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/home_page_graph">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_page_graph"
+    app:startDestination="@id/fragmentAllProducts">
 
+    <fragment
+        android:id="@+id/fragmentAllProducts"
+        android:name="com.safronov_original_app_online_store.presentation.fragment.home_page.all_products.FragmentHomePage"
+        android:label="fragment_all_products"
+        tools:layout="@layout/fragment_home_page" >
+        <action
+            android:id="@+id/action_fragmentAllProducts_to_fragmentProductDetails"
+            app:destination="@id/fragmentProductDetails" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentProductDetails"
+        android:name="com.safronov_original_app_online_store.presentation.fragment.home_page.product_details.FragmentProductDetails"
+        android:label="fragment_product_details"
+        tools:layout="@layout/fragment_product_details" />
 </navigation>

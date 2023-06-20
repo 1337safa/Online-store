@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/product_shape"
+    android:layout_marginTop="@dimen/margin_small"
+    android:layout_marginStart="@dimen/margin_small"
+    android:layout_marginEnd="@dimen/margin_small"
+    android:layout_marginBottom="@dimen/margin_small"
+    android:elevation="@dimen/default_elevation">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/img_product_img"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/product_img"
+        android:src="@drawable/ic_launcher_background"
+        android:scaleType="centerCrop"
+        app:shapeAppearanceOverlay="@style/product_img_shape"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+    
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_product_price"
+        android:theme="@style/title_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="170.046$"
+        android:textStyle="normal"
+        android:textSize="14sp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:layout_marginStart="@dimen/margin_small"
+        android:layout_marginEnd="@dimen/margin_small"
+        android:layout_marginTop="@dimen/margin_small"
+        app:layout_constraintTop_toBottomOf="@+id/img_product_img"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_product_name"
+        android:theme="@style/title_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="Nike air Force 1'07 Premium"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:layout_marginStart="@dimen/margin_small"
+        android:layout_marginEnd="@dimen/margin_small"
+        android:layout_marginBottom="@dimen/margin_small"
+        app:layout_constraintTop_toBottomOf="@+id/tv_product_price"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
