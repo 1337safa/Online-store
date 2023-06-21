@@ -42,7 +42,11 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+
+    //Tests:
     testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.mockito:mockito-core:4.0.0'
+    testImplementation 'org.mockito.kotlin:mockito-kotlin:4.0.0'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
@@ -50,14 +54,19 @@ dependencies {
     def retrofit_version = "2.9.0"
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
-    
-   //OkHttp:
+
+    //Logging interceptor:
+    def interceptor_version = "4.10.0"
+    implementation "com.squareup.okhttp3:logging-interceptor:${interceptor_version}"
+
+    //OkHttp:
     def okhttp_version = "4.9.0"
     implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
 
     //Kotlin coroutines:
     def coroutines_version = "1.6.4"
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version")
 
     //Lifecycle view model:

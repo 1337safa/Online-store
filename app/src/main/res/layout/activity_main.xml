@@ -41,6 +41,7 @@
         app:itemTextColor="@drawable/all_content_graph_navigation_selector"
         app:itemIconTint="@drawable/all_content_graph_navigation_selector"
         app:itemRippleColor="@color/ripple_color"
+        android:background="@color/back"
         app:labelVisibilityMode="labeled"
         android:elevation="@dimen/default_elevation"
         app:layout_constraintBottom_toBottomOf="parent"
