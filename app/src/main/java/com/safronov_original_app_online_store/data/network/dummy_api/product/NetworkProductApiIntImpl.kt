@@ -1,6 +1,7 @@
 package com.safronov_original_app_online_store.data.network.dummy_api.product
 
 import com.safronov_original_app_online_store.data.network.dummy_api.product.retrofit.RetrofitProduct
+import com.safronov_original_app_online_store.data.network.dummy_api.product.retrofit.RetrofitProductInt
 import com.safronov_original_app_online_store.data.network.exception.NetworkException
 import com.safronov_original_app_online_store.domain.model.product.AllProducts
 import retrofit2.Response
@@ -11,7 +12,7 @@ class NetworkProductApiIntImpl(
 
     override suspend fun getAllProducts(): AllProducts? {
         try {
-            val service = retrofitProduct.getService()
+            val service: RetrofitProductInt = retrofitProduct.getService()
             val response: Response<AllProducts> = service.getAllProducts()
             if (response.isSuccessful) {
                 return response.body()

@@ -3,6 +3,7 @@ package com.safronov_original_app_online_store.app
 import android.app.Application
 import com.safronov_original_app_online_store.di.dataDi
 import com.safronov_original_app_online_store.di.domainDi
+import com.safronov_original_app_online_store.di.presentationDi
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -15,7 +16,7 @@ class App: Application() {
         startKoin {
             androidLogger(Level.DEBUG)
             androidContext(this@App)
-            modules(listOf(domainDi, dataDi))
+            modules(listOf(presentationDi, domainDi, dataDi))
         }
     }
 

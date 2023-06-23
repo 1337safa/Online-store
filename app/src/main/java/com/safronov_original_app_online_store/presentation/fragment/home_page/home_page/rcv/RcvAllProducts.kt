@@ -1,5 +1,6 @@
-package com.safronov_original_app_online_store.presentation.fragment.home_page.all_products.rcv
+package com.safronov_original_app_online_store.presentation.fragment.home_page.home_page.rcv
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -36,7 +37,8 @@ class RcvAllProducts(
     override fun onBindViewHolder(holder: AllProductsViewHolder, position: Int) {
         if (holder.adapterPosition != RecyclerView.NO_POSITION) {
             Picasso.get().load(this.currentList[holder.adapterPosition].thumbnail).into(holder.binding.imgProductImg)
-            holder.binding.tvProductPrice.text = this.currentList[holder.adapterPosition].price.toString()
+            val price = "${this.currentList[holder.adapterPosition].price}$"
+            holder.binding.tvProductPrice.text = price
             holder.binding.tvProductName.text = this.currentList[holder.adapterPosition].title
             holder.itemView.setOnClickListener {
                 rcvAllProductsInt.onProductClick(this.currentList[holder.adapterPosition])

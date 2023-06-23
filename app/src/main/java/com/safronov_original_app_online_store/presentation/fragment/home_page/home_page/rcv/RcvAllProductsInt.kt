@@ -1,4 +1,4 @@
-package com.safronov_original_app_online_store.presentation.fragment.home_page.all_products.rcv
+package com.safronov_original_app_online_store.presentation.fragment.home_page.home_page.rcv
 
 import com.safronov_original_app_online_store.domain.model.product.Product
 
