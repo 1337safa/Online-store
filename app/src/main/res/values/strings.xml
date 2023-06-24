@@ -11,4 +11,5 @@
     <string name="nike_example">Nike Air Force 1\'07 Premium</string>
     <string name="about_product">О товаре</string>
     <string name="brand_product_category">Бренд, товар, категория</string>
+    <string name="product_details">Информация о продукте</string>
 </resources>

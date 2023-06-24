@@ -5,8 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.safronov_original_app_online_store.R
+import com.safronov_original_app_online_store.core.extensions.logD
 import com.safronov_original_app_online_store.core.extensions.logE
 import com.safronov_original_app_online_store.core.extensions.thisClassName
 import com.safronov_original_app_online_store.databinding.FragmentHomePageBinding
@@ -14,10 +19,12 @@ import com.safronov_original_app_online_store.domain.model.product.Product
 import com.safronov_original_app_online_store.presentation.fragment.home_page.home_page.rcv.RcvAllProducts
 import com.safronov_original_app_online_store.presentation.fragment.home_page.home_page.rcv.RcvAllProductsInt
 import com.safronov_original_app_online_store.presentation.fragment.home_page.home_page.view_model.FragmentHomePageVM
+import com.safronov_original_app_online_store.presentation.fragment.home_page.product_details.FragmentProductDetails
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import kotlin.math.log
 
 class FragmentHomePage : Fragment(), RcvAllProductsInt {
 
@@ -63,19 +70,39 @@ class FragmentHomePage : Fragment(), RcvAllProductsInt {
                 }
             }.collect()
         }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         try {
-            throw Exception()
+            mainSwipeToRefreshListener()
         } catch (e: Exception) {
-            logE("${thisClassName()} -> ${object{}.javaClass.enclosingMethod?.name}, ${e.message}")
+            logE("${this.javaClass.name} -> ${object{}.javaClass.enclosingMethod?.name}, ${e.message}")
+        }
+    }
+
+    private fun mainSwipeToRefreshListener() {
+        binding.mainSwipeToRefresh.setOnRefreshListener {
+            fragmentHomePageVM.getAllProducts()
+            binding.mainSwipeToRefresh.isRefreshing = false
         }
     }
 
     override fun onProductClick(product: Product) {
         try {
-            //TODO write logic for onProductClick method!
+            goToFragmentDetails(product)
         } catch (e: Exception) {
             logE("${thisClassName()} -> ${object{}.javaClass.enclosingMethod?.name}, ${e.message}")
         }
+    }
+
+    private fun goToFragmentDetails(product: Product) {
+        findNavController().navigate(
+            R.id.action_fragmentAllProducts_to_fragmentProductDetails,
+            bundleOf(
+                FragmentProductDetails.PRODUCT_TO_SHOW_PRODUCT_DETAILS to product
+            )
+        )
     }
 
     override fun onDestroyView() {

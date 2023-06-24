@@ -12,4 +12,4 @@ data class Product(
     val stock: Int,
     val thumbnail: String,
     val title: String
-)
+): java.io.Serializable
