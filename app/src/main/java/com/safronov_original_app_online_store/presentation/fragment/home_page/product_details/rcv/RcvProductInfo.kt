@@ -9,7 +9,7 @@ import com.safronov_original_app_online_store.domain.model.product.ProductInfo
 class RcvProductInfo(): RecyclerView.Adapter<RcvProductInfo.ProductInfoViewHolder>() {
 
     private var listOfProductsInfo: List<ProductInfo> = emptyList()
-
+    
     class ProductInfoViewHolder(
         val binding: ProductInfoRcvItemBinding
     ): RecyclerView.ViewHolder(binding.root) {  }

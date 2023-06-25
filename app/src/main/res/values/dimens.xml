@@ -10,5 +10,5 @@
     <dimen name="margin_small">8dp</dimen>
     <dimen name="details_product_img">350dp</dimen>
     <dimen name="product_img">180dp</dimen>
-    <dimen name="items_in_list_of_all_products">2</dimen>
+    <dimen name="margin_for_show_button">65dp</dimen>
 </resources>

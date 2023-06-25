@@ -6,11 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.LayoutManager
+import com.safronov_original_app_online_store.R
 import com.safronov_original_app_online_store.core.extensions.logE
 import com.safronov_original_app_online_store.databinding.FragmentProductDetailsBinding
 import com.safronov_original_app_online_store.domain.model.product.Product
 import com.safronov_original_app_online_store.domain.model.product.ProductInfo
+import com.safronov_original_app_online_store.presentation.fragment.home_page.product_details.rcv.RcvImgSlider
 import com.safronov_original_app_online_store.presentation.fragment.home_page.product_details.rcv.RcvProductInfo
 import com.safronov_original_app_online_store.presentation.fragment.home_page.product_details.view_model.FragmentProductDetailsVM
 import com.squareup.picasso.Picasso
@@ -24,6 +29,7 @@ class FragmentProductDetails : Fragment() {
     private var _binding: FragmentProductDetailsBinding? = null
     private val binding get() = _binding!!
     private val rcvProductInfo = RcvProductInfo()
+    private val rcvImgSlider = RcvImgSlider()
 
     private val fragmentProductDetailsVM by viewModel<FragmentProductDetailsVM>()
 
@@ -39,23 +45,26 @@ class FragmentProductDetails : Fragment() {
 
     private fun prepareProductInfo() {
         val mutableListOfProductInfo = mutableListOf<ProductInfo>()
-        val product = fragmentProductDetailsVM.currentProduct.value
-        if (product != null) {
-            val category = ProductInfo(
-                title = product::category.name,
-                info = product.category
+        val currentProduct = fragmentProductDetailsVM.currentProduct.value
+        if (currentProduct != null) {
+            mutableListOfProductInfo.add(
+                ProductInfo(
+                    title = getString(R.string.category),
+                    info = currentProduct.category
+                )
             )
-            val brand = ProductInfo(
-                title = product::brand.name,
-                info = product.brand
+            mutableListOfProductInfo.add(
+                ProductInfo(
+                    title = getString(R.string.brand),
+                    info = currentProduct.brand
+                )
             )
-            val rating = ProductInfo(
-                title = product::rating.name,
-                info = product.rating.toString()
+            mutableListOfProductInfo.add(
+                ProductInfo(
+                    title = getString(R.string.rating),
+                    info = currentProduct.rating.toString()
+                )
             )
-            mutableListOfProductInfo.add(category)
-            mutableListOfProductInfo.add(brand)
-            mutableListOfProductInfo.add(rating)
             fragmentProductDetailsVM.saveCurrentProductInfo(mutableListOfProductInfo.toList())
         }
     }
@@ -75,6 +84,7 @@ class FragmentProductDetails : Fragment() {
         _binding = FragmentProductDetailsBinding.inflate(inflater, container, false)
         try {
             initRcv()
+            initViewPager()
             currentProductListener()
         } catch (e: Exception) {
             logE("${this.javaClass.name} -> ${object{}.javaClass.enclosingMethod?.name} -> ${e.message}")
@@ -82,9 +92,13 @@ class FragmentProductDetails : Fragment() {
         return binding.root
     }
 
+    private fun initViewPager() {
+        binding.viewPagerOfImgs.adapter = rcvImgSlider
+    }
+
     private fun initRcv() {
-        binding.rcvProductInfo.layoutManager = LinearLayoutManager(requireContext())
-        binding.rcvProductInfo.adapter = rcvProductInfo
+        binding.rcvInfo.layoutManager = LinearLayoutManager(requireContext())
+        binding.rcvInfo.adapter = rcvProductInfo
     }
 
     private fun currentProductListener() {
@@ -98,10 +112,11 @@ class FragmentProductDetails : Fragment() {
     }
 
     private fun bindViewByData(product: Product) {
-        Picasso.get().load(product.images.first()).into(binding.imgProductImg)
+        rcvImgSlider.submitList(product.images)
         val price = "${product.price}$"
         binding.tvProductPrice.text = price
         binding.tvProductName.text = product.title
+        binding.tvProductDescription.text = product.description
         rcvProductInfo.submitList(fragmentProductDetailsVM.getCurrentProductInfo())
     }
 

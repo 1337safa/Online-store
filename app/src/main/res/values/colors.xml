@@ -9,6 +9,7 @@
 
     <color name="black">#000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="white_transparent">#E6FFFFFF</color>
     <color name="back">#FFFFFFFF</color>
     <color name="ripple_color">#CDCDCD</color>
     <color name="gray">#C3C3C3</color>

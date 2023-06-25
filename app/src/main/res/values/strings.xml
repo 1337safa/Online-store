@@ -12,4 +12,8 @@
     <string name="about_product">О товаре</string>
     <string name="brand_product_category">Бренд, товар, категория</string>
     <string name="product_details">Информация о продукте</string>
+    <string name="category">Категория</string>
+    <string name="brand">Бренд</string>
+    <string name="rating">Рейтинг</string>
+    <string name="add_to_cart">Добавить в корзину</string>
 </resources>
