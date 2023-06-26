@@ -1,8 +1,8 @@
 package com.safronov_original_app_online_store.domain.service
 
 import com.safronov_original_app_online_store.data.network.dummy_api.product.NetworkProductApiInt
-import com.safronov_original_app_online_store.data.network.dummy_api.product.retrofit.RetrofitProduct
-import com.safronov_original_app_online_store.data.network.dummy_api.product.retrofit.RetrofitProductInt
+import com.safronov_original_app_online_store.data.network.dummy_api.product.retrofit.ProductRetrofit
+import com.safronov_original_app_online_store.data.network.dummy_api.product.retrofit.ProductRetrofitInt
 import com.safronov_original_app_online_store.domain.model.product.AllProducts
 import com.safronov_original_app_online_store.domain.repository.ProductRepositoryInt
 import com.safronov_original_app_online_store.domain.service.product.interfaces.ProductsServiceInt
@@ -18,16 +18,16 @@ class ProductsServiceIntImplTest {
     private var mockProductsServiceInt: ProductsServiceInt? = null
     private var mockProductRepositoryInt: ProductRepositoryInt? = null
     private var mockNetworkProductApiInt: NetworkProductApiInt? = null
-    private var retrofitProduct: RetrofitProduct? = null
-    private var mockRetrofitProductInt: RetrofitProductInt? = null
+    private var productRetrofit: ProductRetrofit? = null
+    private var mockProductRetrofitInt: ProductRetrofitInt? = null
 
     @Before
     fun init() {
-        retrofitProduct = RetrofitProduct()
+        productRetrofit = ProductRetrofit()
         mockNetworkProductApiInt = mock(NetworkProductApiInt::class.java)
         mockProductRepositoryInt = mock(ProductRepositoryInt::class.java)
         mockProductsServiceInt = mock(ProductsServiceInt::class.java)
-        mockRetrofitProductInt = mock(RetrofitProductInt::class.java)
+        mockProductRetrofitInt = mock(ProductRetrofitInt::class.java)
     }
 
     @Test

@@ -16,6 +16,8 @@ class FragmentHomePageVM(
     private val _allProducts = MutableStateFlow<AllProducts?>(null)
     val allProducts = _allProducts.asStateFlow()
 
+    var positionOfRecyclerView = 0
+
     fun getAllProducts() {
         viewModelScope.launch(Dispatchers.IO) {
             _allProducts.value = productsServiceInt.getAllProducts()

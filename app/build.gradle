@@ -43,6 +43,10 @@ dependencies {
     implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
+    //Modules: 
+    implementation project(":domain")
+    implementation project(":data")
+
     //Swipe refresh layout
     def swipe_refresh_version = "1.1.0"
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:$swipe_refresh_version"

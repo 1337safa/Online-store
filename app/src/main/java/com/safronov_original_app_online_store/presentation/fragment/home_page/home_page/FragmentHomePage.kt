@@ -9,9 +9,7 @@ import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.safronov_original_app_online_store.R
-import com.safronov_original_app_online_store.core.extensions.logD
 import com.safronov_original_app_online_store.core.extensions.logE
 import com.safronov_original_app_online_store.core.extensions.thisClassName
 import com.safronov_original_app_online_store.databinding.FragmentHomePageBinding
@@ -24,7 +22,6 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import kotlin.math.log
 
 class FragmentHomePage : Fragment(), RcvAllProductsInt {
 
@@ -67,6 +64,7 @@ class FragmentHomePage : Fragment(), RcvAllProductsInt {
             fragmentHomePageVM.allProducts.onEach { allProducts ->
                 if (allProducts != null) {
                     rcvAllProducts.submitList(allProducts.products)
+                    binding.rcvProducts.scrollToPosition(fragmentHomePageVM.positionOfRecyclerView)
                 }
             }.collect()
         }
@@ -87,7 +85,7 @@ class FragmentHomePage : Fragment(), RcvAllProductsInt {
             binding.mainSwipeToRefresh.isRefreshing = false
         }
     }
-
+    
     override fun onProductClick(product: Product) {
         try {
             goToFragmentDetails(product)
