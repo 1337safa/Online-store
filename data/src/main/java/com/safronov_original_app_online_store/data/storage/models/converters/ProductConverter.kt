@@ -9,13 +9,21 @@ class ProductConverter {
         selectedProductEntity: SelectedProductEntity
     ): SelectedProduct {
         return SelectedProduct(
-            id = selectedProductEntity.id
+            productId = selectedProductEntity.productId.toString(),
+            price = selectedProductEntity.price ?: 0,
+            thumbnail = selectedProductEntity.thumbnail ?: "",
+            title = selectedProductEntity.title.toString(),
+            primaryKey = selectedProductEntity.primaryKey
         )
     }
 
     fun convertSelectedProductToSelectedProductEntity(selectedProduct: SelectedProduct): SelectedProductEntity {
         return SelectedProductEntity(
-            id = selectedProduct.id
+            productId = selectedProduct.productId,
+            price = selectedProduct.price,
+            thumbnail = selectedProduct.thumbnail,
+            title = selectedProduct.title,
+            primaryKey = selectedProduct.primaryKey
         )
     }
 
@@ -24,7 +32,15 @@ class ProductConverter {
     ): List<SelectedProduct> {
         val mList = mutableListOf<SelectedProduct>()
         list.forEach {
-            mList.add(SelectedProduct(id = it.id))
+            mList.add(
+                SelectedProduct(
+                    productId = it.productId.toString(),
+                    price = it.price ?: 0,
+                    thumbnail = it.thumbnail.toString(),
+                    title = it.title.toString(),
+                    primaryKey = it.primaryKey
+                )
+            )
         }
         return mList.toList()
     }

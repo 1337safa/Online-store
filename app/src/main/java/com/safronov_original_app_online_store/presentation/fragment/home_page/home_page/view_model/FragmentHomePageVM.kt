@@ -3,7 +3,7 @@ package com.safronov_original_app_online_store.presentation.fragment.home_page.h
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.safronov_original_app_online_store.domain.model.product.AllProducts
-import com.safronov_original_app_online_store.domain.service.product.interfaces.ProductsServiceInt
+import com.safronov_original_app_online_store.domain.service.product.ProductsServiceInt
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

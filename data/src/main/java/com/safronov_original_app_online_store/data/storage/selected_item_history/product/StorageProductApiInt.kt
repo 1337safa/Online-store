@@ -1,12 +1,10 @@
-package com.safronov_original_app_online_store.domain.repository
+package com.safronov_original_app_online_store.data.storage.selected_item_history.product
 
-import com.safronov_original_app_online_store.domain.model.product.AllProducts
 import com.safronov_original_app_online_store.domain.model.product.SelectedProduct
 import kotlinx.coroutines.flow.Flow
 
-interface ProductRepositoryInt {
+interface StorageProductApiInt {
 
-    suspend fun getAllProducts(): AllProducts?
     suspend fun insertSelectedProduct(selectedProduct: SelectedProduct)
     suspend fun getAllSelectedProducts(): Flow<List<SelectedProduct>>
     suspend fun getSelectedProductById(productId: String): SelectedProduct

@@ -5,7 +5,7 @@ import com.safronov_original_app_online_store.data.network.dummy_api.product.ret
 import com.safronov_original_app_online_store.data.network.dummy_api.product.retrofit.ProductRetrofitInt
 import com.safronov_original_app_online_store.domain.model.product.AllProducts
 import com.safronov_original_app_online_store.domain.repository.ProductRepositoryInt
-import com.safronov_original_app_online_store.domain.service.product.interfaces.ProductsServiceInt
+import com.safronov_original_app_online_store.domain.service.product.ProductsServiceInt
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Before
