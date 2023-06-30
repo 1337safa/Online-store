@@ -8,28 +8,30 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.safronov_original_app_online_store.R
 import com.safronov_original_app_online_store.core.extensions.logE
 import com.safronov_original_app_online_store.databinding.FragmentProductDetailsBinding
 import com.safronov_original_app_online_store.domain.model.product.Product
 import com.safronov_original_app_online_store.domain.model.product.ProductInfo
+import com.safronov_original_app_online_store.domain.model.product.SelectedProduct
+import com.safronov_original_app_online_store.presentation.fragment.home_page.home_page.rcv.RcvAllProducts
+import com.safronov_original_app_online_store.presentation.fragment.home_page.home_page.rcv.RcvAllProductsInt
 import com.safronov_original_app_online_store.presentation.fragment.home_page.product_details.rcv.RcvImgSlider
 import com.safronov_original_app_online_store.presentation.fragment.home_page.product_details.rcv.RcvProductInfo
+import com.safronov_original_app_online_store.presentation.fragment.home_page.product_details.rcv.RcvSelectedProducts
+import com.safronov_original_app_online_store.presentation.fragment.home_page.product_details.rcv.RcvSelectedProductsInt
 import com.safronov_original_app_online_store.presentation.fragment.home_page.product_details.view_model.FragmentProductDetailsVM
-import com.squareup.picasso.Picasso
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class FragmentProductDetails : Fragment() {
+class FragmentProductDetails : Fragment(), RcvSelectedProductsInt {
 
     private var _binding: FragmentProductDetailsBinding? = null
     private val binding get() = _binding!!
     private val rcvProductInfo = RcvProductInfo()
     private val rcvImgSlider = RcvImgSlider()
+    private val rcvAllProducts = RcvSelectedProducts(rcvSelectedProductsInt = this)
 
     private val fragmentProductDetailsVM by viewModel<FragmentProductDetailsVM>()
 
@@ -38,9 +40,14 @@ class FragmentProductDetails : Fragment() {
         try {
             saveCurrentProduct(getArgsAsProduct())
             prepareProductInfo()
+            loadAllSelectedProducts()
         } catch (e: Exception) {
             logE("${this.javaClass.name} -> ${object{}.javaClass.enclosingMethod?.name}, ${e.message}")
         }
+    }
+
+    private fun loadAllSelectedProducts() {
+        fragmentProductDetailsVM.loadAllSelectedProducts()
     }
 
     private fun prepareProductInfo() {
@@ -85,7 +92,6 @@ class FragmentProductDetails : Fragment() {
         try {
             initRcv()
             initViewPager()
-            currentProductListener()
         } catch (e: Exception) {
             logE("${this.javaClass.name} -> ${object{}.javaClass.enclosingMethod?.name} -> ${e.message}")
         }
@@ -99,25 +105,51 @@ class FragmentProductDetails : Fragment() {
     private fun initRcv() {
         binding.rcvInfo.layoutManager = LinearLayoutManager(requireContext())
         binding.rcvInfo.adapter = rcvProductInfo
+        binding.rcvRecentlyViewedProducts.layoutManager = GridLayoutManager(requireContext(), 2)
+        binding.rcvRecentlyViewedProducts.adapter = rcvAllProducts
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        try {
+            currentProductListener()
+            allSelectedProductListener()
+        } catch (e: Exception) {
+            logE("${this.javaClass.name} -> ${object{}.javaClass.enclosingMethod?.name}, ${e.message}")
+        }
+    }
+
+    private fun allSelectedProductListener() {
+        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
+            fragmentProductDetailsVM.allSelectedProduct.collect { listOfSelectedProduct ->
+                if (listOfSelectedProduct != null) {
+                    rcvAllProducts.submitList(listOfSelectedProduct)
+                }
+            }
+        }
     }
 
     private fun currentProductListener() {
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
             fragmentProductDetailsVM.currentProduct.collect {
                 if (it != null) {
-                    bindViewByData(it)
+                    bindViewByDataAboutProduct(it)
                 }
             }
         }
     }
 
-    private fun bindViewByData(product: Product) {
+    private fun bindViewByDataAboutProduct(product: Product) {
         rcvImgSlider.submitList(product.images)
         val price = "${product.price}$"
         binding.tvProductPrice.text = price
         binding.tvProductName.text = product.title
         binding.tvProductDescription.text = product.description
         rcvProductInfo.submitList(fragmentProductDetailsVM.getCurrentProductInfo())
+    }
+
+    override fun onSelectedProductClick(selectedProduct: SelectedProduct) {
+        //TODO write code to move to fragment for show product details!
     }
 
     override fun onDestroyView() {

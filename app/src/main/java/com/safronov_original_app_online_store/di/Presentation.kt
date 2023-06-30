@@ -9,12 +9,15 @@ val presentationDi = module {
 
     viewModel<FragmentHomePageVM> {
         FragmentHomePageVM(
-            productsServiceInt = get()
+            productsServiceInt = get(),
+            productConverter = get()
         )
     }
     
     viewModel<FragmentProductDetailsVM> {
-        FragmentProductDetailsVM()
+        FragmentProductDetailsVM(
+            productsServiceInt = get()
+        )
     }
 
 }

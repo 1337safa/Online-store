@@ -1,19 +1,20 @@
 package com.safronov_original_app_online_store.data.storage.models.converters
 
 import com.safronov_original_app_online_store.data.storage.models.SelectedProductEntity
+import com.safronov_original_app_online_store.domain.model.product.Product
 import com.safronov_original_app_online_store.domain.model.product.SelectedProduct
 
 class ProductConverter {
 
     fun convertSelectedProductEntityToSelectedProduct(
-        selectedProductEntity: SelectedProductEntity
+        selectedProductEntity: SelectedProductEntity?
     ): SelectedProduct {
         return SelectedProduct(
-            productId = selectedProductEntity.productId.toString(),
-            price = selectedProductEntity.price ?: 0,
-            thumbnail = selectedProductEntity.thumbnail ?: "",
-            title = selectedProductEntity.title.toString(),
-            primaryKey = selectedProductEntity.primaryKey
+            productId = selectedProductEntity?.productId.toString(),
+            price = selectedProductEntity?.price ?: 0,
+            thumbnail = selectedProductEntity?.thumbnail ?: "",
+            title = selectedProductEntity?.title.toString(),
+            primaryKey = selectedProductEntity?.primaryKey
         )
     }
 
@@ -43,6 +44,16 @@ class ProductConverter {
             )
         }
         return mList.toList()
+    }
+
+    fun convertProductToSelectedProduct(product: Product): SelectedProduct {
+        return SelectedProduct(
+            productId = product.id.toString(),
+            price = product.price,
+            thumbnail = product.thumbnail,
+            title = product.title,
+            primaryKey = null
+        )
     }
 
 }

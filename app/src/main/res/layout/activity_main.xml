@@ -17,7 +17,8 @@
         android:elevation="@dimen/default_elevation"
         app:titleTextAppearance="@style/tool_bar_text"
         app:titleTextColor="@color/text"
-        app:tint="@color/gray"
+        app:tint="@color/black"
+        app:srcCompat="@drawable/ic_back"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

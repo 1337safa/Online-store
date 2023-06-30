@@ -1,6 +1,5 @@
 package com.safronov_original_app_online_store.data.storage.selected_item_history.product
 
-import android.util.Log
 import com.safronov_original_app_online_store.data.storage.exception.StorageException
 import com.safronov_original_app_online_store.data.storage.models.converters.ProductConverter
 import com.safronov_original_app_online_store.data.storage.selected_item_history.product.dao.ProductDaoInt
@@ -16,7 +15,10 @@ class StorageProductApiIntImpl(
     override suspend fun insertSelectedProduct(selectedProduct: SelectedProduct) {
         try {
             val selectedProductEntity = productConverter.convertSelectedProductToSelectedProductEntity(selectedProduct = selectedProduct)
-            productDaoInt.insertSelectedProduct(selectedProductEntity)
+            val potentialSelectedProductExist = productDaoInt.getSelectedProductById(selectedProductEntity.productId.toString())
+            if (potentialSelectedProductExist == null) {
+                productDaoInt.insertSelectedProduct(selectedProductEntity)
+            }
         } catch (e: Exception) {
             throw StorageException("Storage exception when inserting new selection product", e)
         }

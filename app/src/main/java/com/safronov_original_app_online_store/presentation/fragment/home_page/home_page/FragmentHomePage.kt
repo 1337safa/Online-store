@@ -95,6 +95,7 @@ class FragmentHomePage : Fragment(), RcvAllProductsInt {
     }
 
     private fun goToFragmentDetails(product: Product) {
+        fragmentHomePageVM.insertSelectedProduct(product = product)
         findNavController().navigate(
             R.id.action_fragmentAllProducts_to_fragmentProductDetails,
             bundleOf(

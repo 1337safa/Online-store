@@ -64,7 +64,7 @@ class ProductServiceIntImplTest {
     @Test
     fun insertSelectedProduct() = runBlocking {
         val selectedProduct = SelectedProduct(
-            productId = "some product id",
+            productId = "ID",
             price = 0,
             thumbnail = "url",
             title = "Title",
@@ -73,6 +73,8 @@ class ProductServiceIntImplTest {
         productServiceInt.insertSelectedProduct(selectedProduct)
         val selectedProducts = productServiceInt.getSelectedProductsByTitle("Title")
         Assert.assertEquals(selectedProducts.first().title, selectedProduct.title)
+        productServiceInt.insertSelectedProduct(selectedProduct)
+        Assert.assertTrue(selectedProducts.size - 1 == 0)
     }
 
     @Test

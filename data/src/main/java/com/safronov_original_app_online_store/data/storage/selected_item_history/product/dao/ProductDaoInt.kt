@@ -18,7 +18,7 @@ interface ProductDaoInt {
     fun getAllSelectedProducts(): Flow<List<SelectedProductEntity>>
 
     @Query("SELECT * FROM ${TableNames.SELECTED_PRODUCTS_TABLE_NAME} WHERE productId = :productId")
-    fun getSelectedProductById(productId: String): SelectedProductEntity
+    fun getSelectedProductById(productId: String): SelectedProductEntity?
 
     @Query("SELECT * FROM ${TableNames.SELECTED_PRODUCTS_TABLE_NAME} WHERE title = :productTitle")
     fun getSelectedProductsByTitle(productTitle: String): List<SelectedProductEntity>

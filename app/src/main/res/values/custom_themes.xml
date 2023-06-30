@@ -40,5 +40,9 @@
         <item name="cornerSizeTopLeft">@dimen/default_radius</item>
         <item name="cornerSizeTopRight">@dimen/default_radius</item>
     </style>
-
+    
+    <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+        <item name="colorControlNormal">@color/black</item>
+    </style>
+    
 </resources>
