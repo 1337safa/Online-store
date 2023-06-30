@@ -1,6 +1,5 @@
 package com.safronov_original_app_online_store.presentation.fragment.home_page.home_page.rcv
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil

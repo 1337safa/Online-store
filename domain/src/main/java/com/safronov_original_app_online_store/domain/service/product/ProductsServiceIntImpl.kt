@@ -1,6 +1,7 @@
 package com.safronov_original_app_online_store.domain.service.product
 
 import com.safronov_original_app_online_store.domain.model.product.AllProducts
+import com.safronov_original_app_online_store.domain.model.product.ProductCategories
 import com.safronov_original_app_online_store.domain.model.product.SelectedProduct
 import com.safronov_original_app_online_store.domain.repository.ProductRepositoryInt
 import kotlinx.coroutines.flow.Flow
@@ -8,6 +9,10 @@ import kotlinx.coroutines.flow.Flow
 class ProductsServiceIntImpl(
     private val productRepositoryInt: ProductRepositoryInt
 ): ProductsServiceInt {
+
+    override suspend fun getProductsCategories(): ProductCategories? {
+        return productRepositoryInt.getProductsCategories()
+    }
 
     override suspend fun getAllProducts(): AllProducts? {
         return productRepositoryInt.getAllProducts()

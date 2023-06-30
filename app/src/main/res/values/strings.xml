@@ -16,4 +16,8 @@
     <string name="rating">Рейтинг</string>
     <string name="add_to_cart">Добавить в корзину</string>
     <string name="recently_viewed_products">Недавно просмотренные</string>
+    <string name="categories">Категории товаров</string>
+    <string name="all_categories">Все категории</string>
+    <string name="to_choose_product">К выбору товаров</string>
+    <string name="choosing_product_category">Выбор категории товаров</string>
 </resources>

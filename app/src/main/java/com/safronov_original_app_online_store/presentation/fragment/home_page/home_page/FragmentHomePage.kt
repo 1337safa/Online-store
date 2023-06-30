@@ -74,8 +74,15 @@ class FragmentHomePage : Fragment(), RcvAllProductsInt {
         super.onViewCreated(view, savedInstanceState)
         try {
             mainSwipeToRefreshListener()
+            btnGoToProductCategoriesListener()
         } catch (e: Exception) {
             logE("${this.javaClass.name} -> ${object{}.javaClass.enclosingMethod?.name}, ${e.message}")
+        }
+    }
+
+    private fun btnGoToProductCategoriesListener() {
+        binding.btnGoToProductCategories.setOnClickListener {
+            findNavController().navigate(R.id.action_fragmentHomePage_to_fragmentProductCategory)
         }
     }
 
@@ -97,7 +104,7 @@ class FragmentHomePage : Fragment(), RcvAllProductsInt {
     private fun goToFragmentDetails(product: Product) {
         fragmentHomePageVM.insertSelectedProduct(product = product)
         findNavController().navigate(
-            R.id.action_fragmentAllProducts_to_fragmentProductDetails,
+            R.id.action_fragmentHomePage_to_fragmentProductDetails,
             bundleOf(
                 FragmentProductDetails.PRODUCT_TO_SHOW_PRODUCT_DETAILS to product
             )
