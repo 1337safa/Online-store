@@ -16,5 +16,6 @@ interface ProductsServiceInt {
     suspend fun getSelectedProductsByTitle(productTitle: String): List<SelectedProduct>
     suspend fun insertSelectedProduct(selectedProduct: SelectedProduct)
     suspend fun deleteSelectedProduct(selectedProduct: SelectedProduct)
+    suspend fun getAllProductsBySearch(searchText: String): AllProducts?
 
 }

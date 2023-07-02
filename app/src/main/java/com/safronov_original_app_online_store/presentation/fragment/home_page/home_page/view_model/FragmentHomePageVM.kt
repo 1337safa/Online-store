@@ -18,12 +18,16 @@ class FragmentHomePageVM(
     private val productsServiceInt: ProductsServiceInt,
     private val productConverter: ProductConverter,
     private val productCategoriesServiceInt: ProductCategoriesServiceInt
-): ViewModel() {
+) : ViewModel() {
 
     private val _allProducts = MutableStateFlow<AllProducts?>(null)
     val allProducts = _allProducts.asStateFlow()
 
-    var positionOfRecyclerView = 0
+    private var currentSearchText: String? = null
+
+    fun saveCurrentSearchText(searchText: String) { currentSearchText = searchText }
+
+    fun getCurrentSearchText() = currentSearchText
 
     fun insertSelectedProduct(product: Product) {
         try {
@@ -32,24 +36,35 @@ class FragmentHomePageVM(
                 productsServiceInt.insertSelectedProduct(selectedProduct)
             }
         } catch (e: Exception) {
-            logE("${this.javaClass.name} -> ${object{}.javaClass.enclosingMethod?.name}, ${e.message}")
+            logE("${this.javaClass.name} -> ${object {}.javaClass.enclosingMethod?.name}, ${e.message}")
         }
     }
 
     fun loadAllProducts() {
         try {
             viewModelScope.launch(Dispatchers.IO) {
-                val selectedProductCategory = productCategoriesServiceInt.getSelectedProductCategory()
+                val selectedProductCategory =
+                    productCategoriesServiceInt.getSelectedProductCategory()
                 if (selectedProductCategory.productCategory == null) {
                     _allProducts.value = productsServiceInt.getAllProducts()
-                    logD("No category: ${_allProducts.value}")
                 } else {
-                    _allProducts.value = productsServiceInt.getAllProductsByCategory(category = selectedProductCategory)
-                    logD("There is category: ${_allProducts.value}")
+                    _allProducts.value =
+                        productsServiceInt.getAllProductsByCategory(category = selectedProductCategory)
                 }
             }
         } catch (e: Exception) {
-            logE("${this.javaClass.name} -> ${object{}.javaClass.enclosingMethod?.name}, ${e.message}")
+            logE("${this.javaClass.name} -> ${object {}.javaClass.enclosingMethod?.name}, ${e.message}")
+        }
+    }
+
+    fun loadAllProductsBySearch(searchText: String) {
+        try {
+            viewModelScope.launch(Dispatchers.Main) {
+                _allProducts.value =
+                    productsServiceInt.getAllProductsBySearch(searchText = searchText)
+            }
+        } catch (e: Exception) {
+            logE("${this.javaClass.name} -> ${object {}.javaClass.enclosingMethod?.name}, ${e.message}")
         }
     }
 

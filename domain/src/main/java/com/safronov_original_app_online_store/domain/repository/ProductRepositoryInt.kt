@@ -16,5 +16,6 @@ interface ProductRepositoryInt {
     suspend fun getSelectedProductById(productId: String): SelectedProduct
     suspend fun deleteSelectedProduct(selectedProduct: SelectedProduct)
     suspend fun getSelectedProductsByTitle(productTitle: String): List<SelectedProduct>
+    suspend fun getAllProductsBySearch(searchText: String): AllProducts?
 
 }

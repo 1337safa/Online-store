@@ -49,4 +49,17 @@ class NetworkProductApiIntImpl(
         }
     }
 
+    override suspend fun getAllProductsBySearch(searchText: String): AllProducts? {
+        try {
+            val response = productRetrofitInt.getAllProductsBySearch(searchText = searchText)
+            if (response.isSuccessful) {
+                return response.body()
+            } else {
+                throw NetworkException("Error code received from the server, ${response.code()}", Exception("result code: ${response.code()}"))
+            }
+        } catch (e: Exception) {
+            throw NetworkException("Network error when getting all products by search text, ${e.message}", e)
+        }
+    }
+
 }

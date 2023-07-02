@@ -61,4 +61,8 @@ class ProductRepositoryIntImpl(
         return productConverter.convertListOfSelectedProductEntityToListOfSelectedProduct(storageProductApiInt.getSelectedProductsByTitle(productTitle = productTitle))
     }
 
+    override suspend fun getAllProductsBySearch(searchText: String): AllProducts? {
+        return networkProductApiInt.getAllProductsBySearch(searchText = searchText)
+    }
+
 }

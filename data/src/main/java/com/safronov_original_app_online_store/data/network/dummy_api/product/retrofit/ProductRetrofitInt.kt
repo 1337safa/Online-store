@@ -5,6 +5,7 @@ import com.safronov_original_app_online_store.domain.model.product.ProductCatego
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ProductRetrofitInt {
 
@@ -17,6 +18,11 @@ interface ProductRetrofitInt {
     @GET("/products/category/{category}")
     suspend fun getAllProductsByCategory(
         @Path("category") category: String
+    ): Response<AllProducts>
+
+    @GET("/products/search")
+    suspend fun getAllProductsBySearch(
+        @Query("q") searchText: String
     ): Response<AllProducts>
 
 }

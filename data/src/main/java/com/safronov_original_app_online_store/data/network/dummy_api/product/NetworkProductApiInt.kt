@@ -9,5 +9,6 @@ interface NetworkProductApiInt {
     suspend fun getAllProducts(): AllProducts?
     suspend fun getProductsCategories(): ProductCategories?
     suspend fun getAllProductsByCategory(category: String): AllProducts?
+    suspend fun getAllProductsBySearch(searchText: String): AllProducts?
 
 }

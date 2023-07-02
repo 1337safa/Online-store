@@ -39,6 +39,10 @@ class ProductsServiceIntImpl(
         productRepositoryInt.deleteSelectedProduct(selectedProduct = selectedProduct)
     }
 
+    override suspend fun getAllProductsBySearch(searchText: String): AllProducts? {
+        return productRepositoryInt.getAllProductsBySearch(searchText = searchText)
+    }
+
     override suspend fun getSelectedProductsByTitle(productTitle: String): List<SelectedProduct> {
         return productRepositoryInt.getSelectedProductsByTitle(productTitle = productTitle)
     }

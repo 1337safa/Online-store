@@ -1,10 +1,5 @@
 package com.safronov_original_app_online_store.domain.service
 
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import com.safronov_original_app_online_store.data.network.dummy_api.product.NetworkProductApiInt
-import com.safronov_original_app_online_store.data.repository.ProductRepositoryIntImpl
-import com.safronov_original_app_online_store.data.storage.models.converters.ProductConverter
-import com.safronov_original_app_online_store.data.storage.sql.selected_product.StorageProductApiInt
 import com.safronov_original_app_online_store.domain.model.product.AllProducts
 import com.safronov_original_app_online_store.domain.model.product.ProductCategories
 import com.safronov_original_app_online_store.domain.model.product_category.SelectedProductCategory
@@ -54,7 +49,7 @@ class ProductsServiceIntImplTest {
     }
 
     @Test
-    fun getAllProductsByCategory_ShouldReturnAllProductsBySomeProductCategory() = runBlocking {
+    fun `getAllProductsByCategory should return all products by some product category`() = runBlocking {
         val testAllProducts = AllProducts(
             limit = 1,
             products = emptyList(),
@@ -67,6 +62,25 @@ class ProductsServiceIntImplTest {
 
         val productsService = ProductsServiceIntImpl(productRepositoryInt = rep)
         val allProducts = productsService.getAllProductsByCategory(SelectedProductCategory("SomeCategory"))
+
+        println("AllProducts: $allProducts")
+        Assert.assertTrue(allProducts == testAllProducts)
+    }
+
+    @Test
+    fun `getAllProductsBySearch, should return all products by some search text`() = runBlocking {
+        val testAllProducts = AllProducts(
+            limit = 1,
+            products = emptyList(),
+            skip = 0,
+            total = 0
+        )
+
+        val rep = mock(ProductRepositoryInt::class.java)
+        Mockito.`when`(rep.getAllProductsBySearch(anyOrNull())).thenReturn(testAllProducts)
+
+        val productsService = ProductsServiceIntImpl(productRepositoryInt = rep)
+        val allProducts = productsService.getAllProductsBySearch(searchText = "iPhone...")
 
         println("AllProducts: $allProducts")
         Assert.assertTrue(allProducts == testAllProducts)
