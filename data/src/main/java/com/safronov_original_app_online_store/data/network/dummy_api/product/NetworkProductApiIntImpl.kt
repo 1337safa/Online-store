@@ -16,23 +16,36 @@ class NetworkProductApiIntImpl(
             if (response.isSuccessful) {
                 return response.body()
             } else {
-                throw NetworkException("Error code received from the server")
+                throw NetworkException("Error code received from the server, ${response.code()}", Exception("result code: ${response.code()}"))
             }
         } catch (e: Exception) {
-            throw NetworkException("Network error or other exception when getting all products", e)
+            throw NetworkException("Network error or other exception when getting all products, ${e.message}", e)
         }
     }
 
     override suspend fun getProductsCategories(): ProductCategories? {
         try {
-            val response = productRetrofitInt.getProductsCategories()
+            val response: Response<ProductCategories> = productRetrofitInt.getProductsCategories()
             if (response.isSuccessful) {
                 return response.body()
             } else {
-                throw NetworkException("Error code received from the server", Exception("result code: ${response.code()}"))
+                throw NetworkException("Error code received from the server, ${response.code()}", Exception("result code: ${response.code()}"))
             }
         } catch (e: Exception) {
-            throw NetworkException("Network error or something, when getting all products categories, ${e.message}", e)
+            throw NetworkException("Network error when getting all products categories, ${e.message}", e)
+        }
+    }
+
+    override suspend fun getAllProductsByCategory(category: String): AllProducts? {
+        try {
+            val response = productRetrofitInt.getAllProductsByCategory(category = category)
+            if (response.isSuccessful) {
+                return response.body()
+            } else {
+                throw NetworkException("Error code received from the server, ${response.code()}", Exception("result code: ${response.code()}"))
+            }
+        } catch (e: Exception) {
+            throw NetworkException("Network error when getting all products by category, ${e.message}", e)
         }
     }
 

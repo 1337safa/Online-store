@@ -1,24 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/cons_root"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginStart="@dimen/margin_small"
-    android:layout_marginEnd="@dimen/margin_small"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:background="@color/back">
 
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/swt_switch"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/tv_category"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        tools:text="Телефоны"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:checked="false"
-        app:thumbTintMode="multiply"
-        app:thumbTint="@drawable/switch_selector"
-        app:trackTint="@color/gray" />
+        android:theme="@style/text_style"
+        android:layout_marginEnd="8dp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        app:layout_constraintBottom_toBottomOf="@+id/checkBox"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/checkBox"
+        tools:text="Category smarthones" />
 
-</LinearLayout>
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:clickable="false"
+        android:buttonTint="@color/black"
+        android:layout_weight="1" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

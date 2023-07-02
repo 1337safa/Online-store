@@ -2,6 +2,7 @@ package com.safronov_original_app_online_store.presentation.fragment.home_page.p
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.safronov_original_app_online_store.core.extensions.logE
 import com.safronov_original_app_online_store.domain.model.product.Product
 import com.safronov_original_app_online_store.domain.model.product.ProductInfo
 import com.safronov_original_app_online_store.domain.model.product.SelectedProduct
@@ -34,10 +35,14 @@ class FragmentProductDetailsVM(
     fun getCurrentProductInfo() = currentProductInfo
 
     fun loadAllSelectedProducts() {
-        viewModelScope.launch(Dispatchers.IO) {
-            productsServiceInt.getAllSelectedProducts().collect { listOfSelectedProduct ->
-                _allSelectedProduct.value = listOfSelectedProduct.reversed()
+        try {
+            viewModelScope.launch(Dispatchers.IO) {
+                productsServiceInt.getAllSelectedProducts().collect { listOfSelectedProduct ->
+                    _allSelectedProduct.value = listOfSelectedProduct.reversed()
+                }
             }
+        } catch (e: Exception) {
+            logE("${this.javaClass.name} -> ${object{}.javaClass.enclosingMethod?.name}, ${e.message}")
         }
     }
 

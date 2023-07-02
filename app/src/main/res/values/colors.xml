@@ -20,6 +20,7 @@
     <color name="text_in_search">#787878</color>
     <color name="red">#E91E63</color>
     <color name="green">#89FF01</color>
+    <color name="blue">#00BCD4</color>
     <color name="button">#000000</color>
     <color name="icon_active">#000000</color>
     <color name="icon_no_active">#AAAAAA</color>

@@ -3,7 +3,7 @@ package com.safronov_original_app_online_store.data.storage.sql
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.safronov_original_app_online_store.data.storage.models.SelectedProductEntity
-import com.safronov_original_app_online_store.data.storage.selected_item_history.product.dao.ProductDaoInt
+import com.safronov_original_app_online_store.data.storage.sql.selected_product.dao.ProductDaoInt
 
 @Database(entities = [SelectedProductEntity::class], version = 1)
 abstract class AppStorage(): RoomDatabase() {

@@ -4,6 +4,7 @@ import com.safronov_original_app_online_store.domain.model.product.AllProducts
 import com.safronov_original_app_online_store.domain.model.product.ProductCategories
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Path
 
 interface ProductRetrofitInt {
 
@@ -12,5 +13,10 @@ interface ProductRetrofitInt {
 
     @GET("/products/categories")
     suspend fun getProductsCategories(): Response<ProductCategories>
+
+    @GET("/products/category/{category}")
+    suspend fun getAllProductsByCategory(
+        @Path("category") category: String
+    ): Response<AllProducts>
 
 }

@@ -8,31 +8,22 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.safronov_original_app_online_store.R
 import com.safronov_original_app_online_store.core.extensions.logE
 import com.safronov_original_app_online_store.databinding.FragmentProductCategoryBinding
 import com.safronov_original_app_online_store.presentation.fragment.home_page.product_category.rcv.RcvProductCategory
-import com.safronov_original_app_online_store.presentation.fragment.home_page.product_category.view_model.FragmentProductCategoryViewModel
+import com.safronov_original_app_online_store.presentation.fragment.home_page.product_category.rcv.RcvProductCategoryInt
+import com.safronov_original_app_online_store.presentation.fragment.home_page.product_category.view_model.FragmentProductCategoryVM
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class FragmentProductCategory : Fragment() {
+class FragmentProductCategory : Fragment(), RcvProductCategoryInt {
 
     private var _binding: FragmentProductCategoryBinding? = null
     private val binding get() = _binding!!
-    private val rcvProductCategory = RcvProductCategory()
+    private val rcvProductCategory = RcvProductCategory(rcvProductCategoryInt = this)
 
-    private val fragmentProductCategoryViewModel by viewModel<FragmentProductCategoryViewModel>()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        try {
-            fragmentProductCategoryViewModel.loadProductsCategories()
-        } catch (e: Exception) {
-            logE("${this.javaClass.name} -> ${object{}.javaClass.enclosingMethod?.name}, ${e.message}")
-        }
-    }
+    private val fragmentProductCategoryVM by viewModel<FragmentProductCategoryVM>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,6 +31,7 @@ class FragmentProductCategory : Fragment() {
     ): View? {
         _binding = FragmentProductCategoryBinding.inflate(inflater, container, false)
         try {
+            fragmentProductCategoryVM.loadProductsCategories()
             initRcv()
         } catch (e: Exception) {
             logE("${this.javaClass.name} -> ${object{}.javaClass.enclosingMethod?.name}, ${e.message}")
@@ -57,8 +49,16 @@ class FragmentProductCategory : Fragment() {
         try {
             productCategoriesListener()
             btnBackToChooseProductListener()
+            tvClearCategoryListener()
         } catch (e: Exception) {
             logE("${this.javaClass.name} -> ${object{}.javaClass.enclosingMethod?.name}, ${e.message}")
+        }
+    }
+
+    private fun tvClearCategoryListener() {
+        binding.tvClearCategory.setOnClickListener {
+            fragmentProductCategoryVM.insertSelectedProductCategory("", false)
+            rcvProductCategory.clearSelectedCategory()
         }
     }
 
@@ -69,12 +69,23 @@ class FragmentProductCategory : Fragment() {
     }
 
     private fun productCategoriesListener() {
-        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
-            fragmentProductCategoryViewModel.productCategories.collect { productsCategories ->
+        viewLifecycleOwner.lifecycleScope.launch {
+            fragmentProductCategoryVM.productCategories.collect { productsCategories ->
                 if (productsCategories != null) {
                     rcvProductCategory.submitList(productsCategories)
+                    fragmentProductCategoryVM.getSelectedProductCategory {
+                        rcvProductCategory.setSelectedProductCategory(it)
+                    }
                 }
             }
+        }
+    }
+
+    override fun onCategoryClick(category: String, isChecked: Boolean) {
+        try {
+            fragmentProductCategoryVM.insertSelectedProductCategory(category = category, isChecked = isChecked)
+        } catch (e: Exception) {
+            logE("${this.javaClass.name} -> ${object{}.javaClass.enclosingMethod?.name}, ${e.message}")
         }
     }
 

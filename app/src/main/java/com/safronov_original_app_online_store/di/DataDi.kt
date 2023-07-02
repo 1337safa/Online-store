@@ -1,17 +1,22 @@
 package com.safronov_original_app_online_store.di
 
+import android.content.Context
 import androidx.room.Room
 import com.safronov_original_app_online_store.data.network.dummy_api.base_info.DummyApiBaseInfo
 import com.safronov_original_app_online_store.data.network.dummy_api.product.NetworkProductApiInt
 import com.safronov_original_app_online_store.data.network.dummy_api.product.NetworkProductApiIntImpl
 import com.safronov_original_app_online_store.data.network.dummy_api.product.retrofit.ProductRetrofit
 import com.safronov_original_app_online_store.data.network.dummy_api.product.retrofit.ProductRetrofitInt
+import com.safronov_original_app_online_store.data.repository.ProductCategoryRepositoryIntImpl
 import com.safronov_original_app_online_store.data.repository.ProductRepositoryIntImpl
 import com.safronov_original_app_online_store.data.storage.models.converters.ProductConverter
-import com.safronov_original_app_online_store.data.storage.selected_item_history.product.StorageProductApiInt
-import com.safronov_original_app_online_store.data.storage.selected_item_history.product.StorageProductApiIntImpl
-import com.safronov_original_app_online_store.data.storage.selected_item_history.product.dao.ProductDaoInt
+import com.safronov_original_app_online_store.data.storage.shared_preferences.selected_product_category.StorageSelectedProductCategoryApiInt
+import com.safronov_original_app_online_store.data.storage.shared_preferences.selected_product_category.StorageSelectedProductCategoryApiIntImpl
+import com.safronov_original_app_online_store.data.storage.sql.selected_product.StorageProductApiInt
+import com.safronov_original_app_online_store.data.storage.sql.selected_product.StorageProductApiIntImpl
+import com.safronov_original_app_online_store.data.storage.sql.selected_product.dao.ProductDaoInt
 import com.safronov_original_app_online_store.data.storage.sql.AppStorage
+import com.safronov_original_app_online_store.domain.repository.ProductCategoryRepositoryInt
 import com.safronov_original_app_online_store.domain.repository.ProductRepositoryInt
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -23,7 +28,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 val dataDi = module {
 
     single<ProductRepositoryInt> {
-        ProductRepositoryIntImpl(networkProductApiInt = get(), storageProductApiInt = get())
+        ProductRepositoryIntImpl(networkProductApiInt = get(), storageProductApiInt = get(), productConverter = get())
     }
 
     single<NetworkProductApiInt> {
@@ -43,7 +48,6 @@ val dataDi = module {
 
     single<StorageProductApiInt> {
         StorageProductApiIntImpl(
-            productConverter = get(),
             productDaoInt = get()
         )
     }
@@ -57,11 +61,26 @@ val dataDi = module {
         db.getProductDaoInt()
     }
 
+    single<ProductCategoryRepositoryInt> {
+        ProductCategoryRepositoryIntImpl(
+            storageSelectedProductCategoryApiInt = get()
+        )
+    }
+
+    single<StorageSelectedProductCategoryApiInt> {
+        val sharedPreferencesName = "SelectedProductCategory"
+        StorageSelectedProductCategoryApiIntImpl(
+            sharedPreferencesForSelectedProductCategory = androidApplication().applicationContext.getSharedPreferences(
+                sharedPreferencesName, Context.MODE_PRIVATE
+            )
+        )
+    }
+
     single {
         ProductConverter()
     }
 
-    single<ProductRetrofit> {
+    single {
         ProductRetrofit()
     }
 

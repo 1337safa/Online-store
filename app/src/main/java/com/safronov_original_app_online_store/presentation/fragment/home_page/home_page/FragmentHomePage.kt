@@ -31,21 +31,13 @@ class FragmentHomePage : Fragment(), RcvAllProductsInt {
 
     private val fragmentHomePageVM by viewModel<FragmentHomePageVM>()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        try {
-            fragmentHomePageVM.getAllProducts()
-        } catch (e: Exception) {
-            logE("${thisClassName()}, ${object{}.javaClass.enclosingMethod?.name}, ${e.message}")
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentHomePageBinding.inflate(inflater, container, false)
         try {
+            fragmentHomePageVM.loadAllProducts()
             initRcv()
             vmAllProductsListener()
         } catch (e: Exception) {
@@ -88,7 +80,7 @@ class FragmentHomePage : Fragment(), RcvAllProductsInt {
 
     private fun mainSwipeToRefreshListener() {
         binding.mainSwipeToRefresh.setOnRefreshListener {
-            fragmentHomePageVM.getAllProducts()
+            fragmentHomePageVM.loadAllProducts()
             binding.mainSwipeToRefresh.isRefreshing = false
         }
     }

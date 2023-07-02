@@ -1,18 +1,19 @@
 package com.safronov_original_app_online_store.presentation.fragment.home_page.product_category.rcv
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.CompoundButton
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.safronov_original_app_online_store.databinding.ProductCategoryRcvItemBinding
-import com.safronov_original_app_online_store.domain.model.product.ProductCategories
+import com.safronov_original_app_online_store.domain.model.product_category.SelectedProductCategory
 
 class RcvProductCategory(
-
+    private val rcvProductCategoryInt: RcvProductCategoryInt
 ): ListAdapter<String, RcvProductCategory.ProductCategoryViewHolder>(RcvProductCategory.ProductCategoryDiffUtill()) {
+
+    private var singleSelectedItem = NO_SELECTED_ITEM
+    private var defaultSelectedProduct: String? = null
 
     class ProductCategoryDiffUtill(): DiffUtil.ItemCallback<String>() {
         override fun areItemsTheSame(
@@ -32,9 +33,7 @@ class RcvProductCategory(
 
     class ProductCategoryViewHolder(
         val binding: ProductCategoryRcvItemBinding
-    ): RecyclerView.ViewHolder(binding.root) {
-
-    }
+    ): RecyclerView.ViewHolder(binding.root) { }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductCategoryViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -43,13 +42,21 @@ class RcvProductCategory(
     }
 
     override fun onBindViewHolder(holder: ProductCategoryViewHolder, position: Int) {
+
         if (holder.adapterPosition != RecyclerView.NO_POSITION) {
-            holder.binding.swtSwitch.text = currentList[holder.adapterPosition].toString()
-            holder.binding.swtSwitch.setOnCheckedChangeListener(object: CompoundButton.OnCheckedChangeListener {
-                override fun onCheckedChanged(p0: CompoundButton?, isChecked: Boolean) {
-                    Log.d("MyLog", "Is checked: ${isChecked}")
+
+            holder.binding.tvCategory.text = currentList[holder.adapterPosition]
+            holder.binding.checkBox.isChecked = currentList[holder.adapterPosition] == defaultSelectedProduct
+            holder.binding.consRoot.setOnClickListener {
+                if (holder.adapterPosition != RecyclerView.NO_POSITION) {
+                    defaultSelectedProduct = currentList[holder.adapterPosition].toString()
+                    rcvProductCategoryInt.onCategoryClick(currentList[holder.adapterPosition], true)
+                    notifyDataSetChanged()
                 }
-            })
+            }
+
+        } else {
+            holder.binding.consRoot.setOnClickListener(null)
         }
     }
 
@@ -57,5 +64,28 @@ class RcvProductCategory(
         return currentList.size
     }
 
+    private fun setSingleSelectedItemPosition(adapterPosition: Int) {
+        if (adapterPosition == RecyclerView.NO_POSITION) {
+            return
+        }
+        notifyItemChanged(singleSelectedItem)
+        singleSelectedItem = adapterPosition
+        notifyItemChanged(singleSelectedItem)
+    }
+
+    fun setSelectedProductCategory(productCategory: SelectedProductCategory) {
+        defaultSelectedProduct = productCategory.productCategory
+        notifyDataSetChanged()
+    }
+
+    fun clearSelectedCategory() {
+        singleSelectedItem = NO_SELECTED_ITEM
+        defaultSelectedProduct = null
+        notifyDataSetChanged()
+    }
+
+    companion object {
+        private const val NO_SELECTED_ITEM = -1
+    }
 
 }

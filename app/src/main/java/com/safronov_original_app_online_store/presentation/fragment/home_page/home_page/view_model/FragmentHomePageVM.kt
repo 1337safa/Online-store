@@ -2,11 +2,13 @@ package com.safronov_original_app_online_store.presentation.fragment.home_page.h
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.safronov_original_app_online_store.core.extensions.logD
+import com.safronov_original_app_online_store.core.extensions.logE
 import com.safronov_original_app_online_store.data.storage.models.converters.ProductConverter
 import com.safronov_original_app_online_store.domain.model.product.AllProducts
 import com.safronov_original_app_online_store.domain.model.product.Product
-import com.safronov_original_app_online_store.domain.model.product.SelectedProduct
 import com.safronov_original_app_online_store.domain.service.product.ProductsServiceInt
+import com.safronov_original_app_online_store.domain.service.product_category.ProductCategoriesServiceInt
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -14,7 +16,8 @@ import kotlinx.coroutines.launch
 
 class FragmentHomePageVM(
     private val productsServiceInt: ProductsServiceInt,
-    private val productConverter: ProductConverter
+    private val productConverter: ProductConverter,
+    private val productCategoriesServiceInt: ProductCategoriesServiceInt
 ): ViewModel() {
 
     private val _allProducts = MutableStateFlow<AllProducts?>(null)
@@ -23,15 +26,30 @@ class FragmentHomePageVM(
     var positionOfRecyclerView = 0
 
     fun insertSelectedProduct(product: Product) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val selectedProduct = productConverter.convertProductToSelectedProduct(product)
-            productsServiceInt.insertSelectedProduct(selectedProduct)
+        try {
+            viewModelScope.launch(Dispatchers.IO) {
+                val selectedProduct = productConverter.convertProductToSelectedProduct(product)
+                productsServiceInt.insertSelectedProduct(selectedProduct)
+            }
+        } catch (e: Exception) {
+            logE("${this.javaClass.name} -> ${object{}.javaClass.enclosingMethod?.name}, ${e.message}")
         }
     }
 
-    fun getAllProducts() {
-        viewModelScope.launch(Dispatchers.IO) {
-            _allProducts.value = productsServiceInt.getAllProducts()
+    fun loadAllProducts() {
+        try {
+            viewModelScope.launch(Dispatchers.IO) {
+                val selectedProductCategory = productCategoriesServiceInt.getSelectedProductCategory()
+                if (selectedProductCategory.productCategory == null) {
+                    _allProducts.value = productsServiceInt.getAllProducts()
+                    logD("No category: ${_allProducts.value}")
+                } else {
+                    _allProducts.value = productsServiceInt.getAllProductsByCategory(category = selectedProductCategory)
+                    logD("There is category: ${_allProducts.value}")
+                }
+            }
+        } catch (e: Exception) {
+            logE("${this.javaClass.name} -> ${object{}.javaClass.enclosingMethod?.name}, ${e.message}")
         }
     }
 

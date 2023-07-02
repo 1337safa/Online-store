@@ -1,4 +1,4 @@
-package com.safronov_original_app_online_store.data.storage.selected_item_history.product.dao
+package com.safronov_original_app_online_store.data.storage.sql.selected_product.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
