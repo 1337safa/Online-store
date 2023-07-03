@@ -33,7 +33,8 @@ val presentationDi = module {
 
     viewModel<FragmentOnlineProductSearchVM> {
         FragmentOnlineProductSearchVM(
-            productsServiceInt = get()
+            productsServiceInt = get(),
+            productConverter = get()
         )
     }
 

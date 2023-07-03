@@ -114,6 +114,7 @@ class FragmentOnlineProductSearch : Fragment(), RcvAllProductsInt {
 
     override fun onProductClick(product: Product) {
         try {
+            fragmentOnlineProductSearchVM.insertSelectedProduct(product = product)
             findNavController().navigate(
                 R.id.action_fragmentOnlineProductSearch_to_fragmentProductDetails,
                 bundleOf(

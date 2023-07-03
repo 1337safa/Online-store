@@ -26,7 +26,7 @@ class FragmentSelectedProductHistoryViewModel(
         try {
             viewModelScope.launch(Dispatchers.IO) {
                 productsServiceInt.getAllSelectedProducts().collect {
-                    _allSelectedProducts.value = it
+                    _allSelectedProducts.value = it.reversed()
                 }
             }
         } catch (e: Exception) {

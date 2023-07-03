@@ -23,4 +23,12 @@
     <string name="clear_selected_categories">Сбросить выбранную категорию</string>
     <string name="search_product">Поиск товаров</string>
     <string name="selected_product_history">История выбранных товаров</string>
+    <string name="save_my_product">Сохранить мой товар</string>
+    <string name="add_product_img">Добавить фотографию</string>
+    <string name="category_of_product">Категория товара(брюки, украшения, футболки)</string>
+    <string name="product_description">Описание товара</string>
+    <string name="product_name">Имя товара</string>
+    <string name="price">Цена</string>
+    <string name="sell_my_product">Продать мой товар</string>
+    <string name="selling_product">Продажа товара</string>
 </resources>

@@ -31,9 +31,19 @@
         <item name="android:textColor">@color/text</item>
     </style>
 
+    <style name="edtv_style">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
     <style name="text_style">
         <item name="android:textColor">@color/text</item>
         <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="text_input_layout_style">
+        <item name="android:paddingStart">-16dp</item>
     </style>
 
     <style name="product_img_shape">
