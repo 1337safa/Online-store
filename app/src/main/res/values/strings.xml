@@ -21,4 +21,6 @@
     <string name="to_choose_product">К выбору товаров</string>
     <string name="choosing_product_category">Выбор категории товаров</string>
     <string name="clear_selected_categories">Сбросить выбранную категорию</string>
+    <string name="search_product">Поиск товаров</string>
+    <string name="selected_product_history">История выбранных товаров</string>
 </resources>

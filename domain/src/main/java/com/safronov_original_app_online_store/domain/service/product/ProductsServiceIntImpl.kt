@@ -1,6 +1,7 @@
 package com.safronov_original_app_online_store.domain.service.product
 
 import com.safronov_original_app_online_store.domain.model.product.AllProducts
+import com.safronov_original_app_online_store.domain.model.product.Product
 import com.safronov_original_app_online_store.domain.model.product.ProductCategories
 import com.safronov_original_app_online_store.domain.model.product.SelectedProduct
 import com.safronov_original_app_online_store.domain.model.product_category.SelectedProductCategory
@@ -21,6 +22,10 @@ class ProductsServiceIntImpl(
 
     override suspend fun getAllProductsByCategory(category: SelectedProductCategory): AllProducts? {
         return productRepositoryInt.getAllProductsByCategory(category = category)
+    }
+
+    override suspend fun getProductById(productId: String): Product? {
+        return productRepositoryInt.getProductById(productId = productId)
     }
 
     override suspend fun insertSelectedProduct(selectedProduct: SelectedProduct) {

@@ -23,12 +23,6 @@ class FragmentHomePageVM(
     private val _allProducts = MutableStateFlow<AllProducts?>(null)
     val allProducts = _allProducts.asStateFlow()
 
-    private var currentSearchText: String? = null
-
-    fun saveCurrentSearchText(searchText: String) { currentSearchText = searchText }
-
-    fun getCurrentSearchText() = currentSearchText
-
     fun insertSelectedProduct(product: Product) {
         try {
             viewModelScope.launch(Dispatchers.IO) {
@@ -51,17 +45,6 @@ class FragmentHomePageVM(
                     _allProducts.value =
                         productsServiceInt.getAllProductsByCategory(category = selectedProductCategory)
                 }
-            }
-        } catch (e: Exception) {
-            logE("${this.javaClass.name} -> ${object {}.javaClass.enclosingMethod?.name}, ${e.message}")
-        }
-    }
-
-    fun loadAllProductsBySearch(searchText: String) {
-        try {
-            viewModelScope.launch(Dispatchers.Main) {
-                _allProducts.value =
-                    productsServiceInt.getAllProductsBySearch(searchText = searchText)
             }
         } catch (e: Exception) {
             logE("${this.javaClass.name} -> ${object {}.javaClass.enclosingMethod?.name}, ${e.message}")

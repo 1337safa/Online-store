@@ -1,17 +1,16 @@
 package com.safronov_original_app_online_store.presentation.fragment.home_page.home_page
 
 import android.os.Bundle
+import android.text.InputType
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.safronov_original_app_online_store.R
-import com.safronov_original_app_online_store.core.extensions.logD
 import com.safronov_original_app_online_store.core.extensions.logE
 import com.safronov_original_app_online_store.core.extensions.thisClassName
 import com.safronov_original_app_online_store.databinding.FragmentHomePageBinding
@@ -41,15 +40,15 @@ class FragmentHomePage : Fragment(), RcvAllProductsInt {
         try {
             loadAllProducts()
             initRcv()
-            vmAllProductsListener()
+            initSearchView()
         } catch (e: Exception) {
             logE("${thisClassName()}, ${object{}.javaClass.enclosingMethod?.name}, -> ${e.message}")
         }
         return binding.root
     }
 
-    private fun prepareSearchView() {
-        binding.srchSearchProduct.setQuery("", true)
+    private fun initSearchView() {
+        binding.srchSearchProduct.inputType = InputType.TYPE_NULL
     }
 
     private fun initRcv() {
@@ -57,40 +56,32 @@ class FragmentHomePage : Fragment(), RcvAllProductsInt {
         binding.rcvProducts.adapter = rcvAllProducts
     }
 
-    private fun vmAllProductsListener() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            fragmentHomePageVM.allProducts.onEach { allProducts ->
-                if (allProducts != null) {
-                    rcvAllProducts.submitList(allProducts.products)
-                    showDataLoaded()
-                }
-            }.collect()
-        }
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         try {
-            prepareSearchView()
             mainSwipeToRefreshListener()
+            srchSearchProductListener()
             btnGoToProductCategoriesListener()
-            srchSearchProductQueryTextListener()
+            allProductsListener()
         } catch (e: Exception) {
             logE("${this.javaClass.name} -> ${object{}.javaClass.enclosingMethod?.name}, ${e.message}")
         }
     }
 
-    private fun srchSearchProductQueryTextListener() {
-        binding.srchSearchProduct.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(searchText: String?): Boolean {
-                return false
-            }
+    private fun allProductsListener() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            fragmentHomePageVM.allProducts.onEach { allProducts ->
+                if (allProducts != null) {
+                    rcvAllProducts.submitList(allProducts.products)
+                }
+            }.collect()
+        }
+    }
 
-            override fun onQueryTextChange(searchText: String?): Boolean {
-                loadAllProductsBySearchText(searchText)
-                return true
-            }
-        })
+    private fun srchSearchProductListener() {
+        binding.srchSearchProduct.setOnClickListener {
+            findNavController().navigate(R.id.action_fragmentHomePage_to_fragmentOnlineProductSearch)
+        }
     }
 
     private fun btnGoToProductCategoriesListener() {
@@ -103,7 +94,6 @@ class FragmentHomePage : Fragment(), RcvAllProductsInt {
         binding.mainSwipeToRefresh.setOnRefreshListener {
             loadAllProducts()
             binding.mainSwipeToRefresh.isRefreshing = false
-            showDataLoaded()
         }
     }
     
@@ -120,40 +110,13 @@ class FragmentHomePage : Fragment(), RcvAllProductsInt {
         findNavController().navigate(
             R.id.action_fragmentHomePage_to_fragmentProductDetails,
             bundleOf(
-                FragmentProductDetails.PRODUCT_TO_SHOW_PRODUCT_DETAILS to product
+                FragmentProductDetails.PRODUCT_ID_TO_SHOW_PRODUCT_DETAILS to product.id
             )
         )
     }
 
-    private fun loadAllProductsBySearchText(searchText: String?) {
-        showDataIsLoading()
-        fragmentHomePageVM.saveCurrentSearchText(searchText.toString())
-        if (searchText.isNullOrEmpty()) {
-            fragmentHomePageVM.loadAllProducts()
-        } else {
-            fragmentHomePageVM.loadAllProductsBySearch(searchText = searchText.toString())
-        }
-    }
-
     private fun loadAllProducts() {
-        showDataIsLoading()
-        val searchText = fragmentHomePageVM.getCurrentSearchText()
-        if (searchText?.isEmpty() == true) {
-            fragmentHomePageVM.loadAllProducts()
-        } else {
-            fragmentHomePageVM.loadAllProductsBySearch(searchText = searchText ?: "")
-        }
-        logD("Srch: ${searchText}")
-    }
-
-    private fun showDataLoaded() {
-        binding.mainProgressBar.visibility = View.INVISIBLE
-        binding.rcvProducts.visibility = View.VISIBLE
-    }
-
-    private fun showDataIsLoading() {
-        binding.rcvProducts.visibility = View.INVISIBLE
-        binding.mainProgressBar.visibility = View.VISIBLE
+        fragmentHomePageVM.loadAllProducts()
     }
 
     override fun onDestroyView() {

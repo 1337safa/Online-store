@@ -1,7 +1,5 @@
 package com.safronov_original_app_online_store.domain.service
 
-import com.safronov_original_app_online_store.data.repository.ProductCategoryRepositoryIntImpl
-import com.safronov_original_app_online_store.data.storage.shared_preferences.selected_product_category.StorageSelectedProductCategoryApiInt
 import com.safronov_original_app_online_store.domain.model.product_category.SelectedProductCategory
 import com.safronov_original_app_online_store.domain.repository.ProductCategoryRepositoryInt
 import com.safronov_original_app_online_store.domain.service.product_category.ProductCategoriesServiceInt
@@ -14,9 +12,7 @@ import org.mockito.Mockito.mock
 
 class ProductCategoriesServiceIntImplTest {
 
-    private val productCategoryRepositoryInt: ProductCategoryRepositoryInt = ProductCategoryRepositoryIntImpl(
-        storageSelectedProductCategoryApiInt = mock(StorageSelectedProductCategoryApiInt::class.java),
-    )
+    private val productCategoryRepositoryInt = mock(ProductCategoryRepositoryInt::class.java)
 
     @Test
     fun insertSelectedProductCategory(): Unit = runBlocking {

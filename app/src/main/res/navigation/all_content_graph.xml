@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/all_content_graph">
+    android:id="@+id/all_content_graph"
+    app:startDestination="@id/home_page_graph">
 
     <include app:graph="@navigation/home_page_graph" />
-    <include app:graph="@navigation/products_selection_story_graph" />
+    <include app:graph="@navigation/selected_product_history" />
+
 </navigation>

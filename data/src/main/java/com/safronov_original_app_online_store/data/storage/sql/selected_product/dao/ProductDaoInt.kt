@@ -20,7 +20,7 @@ interface ProductDaoInt {
     @Query("SELECT * FROM ${TableNames.SELECTED_PRODUCTS_TABLE_NAME} WHERE productId = :productId")
     fun getSelectedProductById(productId: String): SelectedProductEntity?
 
-    @Query("SELECT * FROM ${TableNames.SELECTED_PRODUCTS_TABLE_NAME} WHERE title = :productTitle")
+    @Query("SELECT * FROM ${TableNames.SELECTED_PRODUCTS_TABLE_NAME} WHERE title LIKE '%' || :productTitle || '%'")
     fun getSelectedProductsByTitle(productTitle: String): List<SelectedProductEntity>
 
     @Delete

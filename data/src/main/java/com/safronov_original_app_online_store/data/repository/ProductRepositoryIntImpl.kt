@@ -4,6 +4,7 @@ import com.safronov_original_app_online_store.data.network.dummy_api.product.Net
 import com.safronov_original_app_online_store.data.storage.models.converters.ProductConverter
 import com.safronov_original_app_online_store.data.storage.sql.selected_product.StorageProductApiInt
 import com.safronov_original_app_online_store.domain.model.product.AllProducts
+import com.safronov_original_app_online_store.domain.model.product.Product
 import com.safronov_original_app_online_store.domain.model.product.ProductCategories
 import com.safronov_original_app_online_store.domain.model.product.SelectedProduct
 import com.safronov_original_app_online_store.domain.model.product_category.SelectedProductCategory
@@ -27,6 +28,10 @@ class ProductRepositoryIntImpl(
 
     override suspend fun getAllProductsByCategory(category: SelectedProductCategory): AllProducts? {
         return networkProductApiInt.getAllProductsByCategory(category = category.productCategory.toString())
+    }
+
+    override suspend fun getProductById(productId: String): Product? {
+        return networkProductApiInt.getProductById(productId = productId)
     }
 
     override suspend fun insertSelectedProduct(selectedProduct: SelectedProduct) {

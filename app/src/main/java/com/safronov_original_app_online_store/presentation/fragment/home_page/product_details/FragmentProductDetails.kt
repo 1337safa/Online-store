@@ -35,15 +35,25 @@ class FragmentProductDetails : Fragment(), RcvSelectedProductsInt {
 
     private val fragmentProductDetailsVM by viewModel<FragmentProductDetailsVM>()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = FragmentProductDetailsBinding.inflate(inflater, container, false)
         try {
-            saveCurrentProduct(getArgsAsProduct())
+            fragmentProductDetailsVM.loadCurrentProductById(getArgsAsProduct().toString())
             prepareProductInfo()
             loadAllSelectedProducts()
+            initRcv()
+            initViewPager()
         } catch (e: Exception) {
-            logE("${this.javaClass.name} -> ${object{}.javaClass.enclosingMethod?.name}, ${e.message}")
+            logE("${this.javaClass.name} -> ${object{}.javaClass.enclosingMethod?.name} -> ${e.message}")
         }
+        return binding.root
+    }
+
+    private fun getArgsAsProduct(): Int {
+        return requireArguments().getInt(PRODUCT_ID_TO_SHOW_PRODUCT_DETAILS, DEFAULT_PRODUCT_ID)
     }
 
     private fun loadAllSelectedProducts() {
@@ -76,27 +86,6 @@ class FragmentProductDetails : Fragment(), RcvSelectedProductsInt {
         }
     }
 
-    private fun saveCurrentProduct(argsAsProduct: Product?) {
-        fragmentProductDetailsVM.saveCurrentProduct(argsAsProduct)
-    }
-
-    private fun getArgsAsProduct(): Product? {
-        return requireArguments().getSerializable(PRODUCT_TO_SHOW_PRODUCT_DETAILS) as Product?
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentProductDetailsBinding.inflate(inflater, container, false)
-        try {
-            initRcv()
-            initViewPager()
-        } catch (e: Exception) {
-            logE("${this.javaClass.name} -> ${object{}.javaClass.enclosingMethod?.name} -> ${e.message}")
-        }
-        return binding.root
-    }
 
     private fun initViewPager() {
         binding.viewPagerOfImgs.adapter = rcvImgSlider
@@ -160,7 +149,8 @@ class FragmentProductDetails : Fragment(), RcvSelectedProductsInt {
     companion object {
         @JvmStatic
         fun newInstance() = FragmentProductDetails()
-        const val PRODUCT_TO_SHOW_PRODUCT_DETAILS = "Product to show product details"
+        const val PRODUCT_ID_TO_SHOW_PRODUCT_DETAILS = "Product ID to show product details"
+        private const val DEFAULT_PRODUCT_ID = -1
     }
 
 }

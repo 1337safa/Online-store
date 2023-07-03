@@ -8,7 +8,7 @@
         android:title="@string/main" />
 
     <item
-        android:id="@+id/products_selection_story_graph"
+        android:id="@+id/selected_product_history"
         android:icon="@drawable/ic_time"
         android:orderInCategory="1"
         android:title="@string/story" />

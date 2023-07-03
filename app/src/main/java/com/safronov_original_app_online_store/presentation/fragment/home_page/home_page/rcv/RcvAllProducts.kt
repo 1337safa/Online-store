@@ -49,4 +49,10 @@ class RcvAllProducts(
 
     override fun getItemCount(): Int = this.currentList.size
 
+    fun clearList() {
+        val newList = currentList.toMutableList()
+        newList.clear()
+        submitList(newList.toList())
+    }
+
 }

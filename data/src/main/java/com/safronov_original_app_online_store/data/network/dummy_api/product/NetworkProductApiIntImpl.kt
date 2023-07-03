@@ -3,6 +3,7 @@ package com.safronov_original_app_online_store.data.network.dummy_api.product
 import com.safronov_original_app_online_store.data.network.dummy_api.product.retrofit.ProductRetrofitInt
 import com.safronov_original_app_online_store.data.network.exception.NetworkException
 import com.safronov_original_app_online_store.domain.model.product.AllProducts
+import com.safronov_original_app_online_store.domain.model.product.Product
 import com.safronov_original_app_online_store.domain.model.product.ProductCategories
 import retrofit2.Response
 
@@ -59,6 +60,19 @@ class NetworkProductApiIntImpl(
             }
         } catch (e: Exception) {
             throw NetworkException("Network error when getting all products by search text, ${e.message}", e)
+        }
+    }
+
+    override suspend fun getProductById(productId: String): Product? {
+        try {
+            val response = productRetrofitInt.getProductById(productId = productId)
+            if (response.isSuccessful) {
+                return response.body()
+            } else {
+                throw NetworkException("Error code received from the server, ${response.code()}", Exception("result code: ${response.code()}"))
+            }
+        } catch (e: Exception) {
+            throw NetworkException("Network error when getting product by id, ${e.message}", e)
         }
     }
 

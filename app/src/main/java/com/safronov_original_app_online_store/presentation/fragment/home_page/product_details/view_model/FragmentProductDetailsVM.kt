@@ -24,15 +24,21 @@ class FragmentProductDetailsVM(
 
     private var currentProductInfo: List<ProductInfo> = emptyList()
 
-    fun saveCurrentProduct(product: Product?) {
-        this._currentProduct.value = product
-    }
-
     fun saveCurrentProductInfo(list: List<ProductInfo>) {
         currentProductInfo = list
     }
 
     fun getCurrentProductInfo() = currentProductInfo
+
+    fun loadCurrentProductById(productId: String) {
+        try {
+            viewModelScope.launch(Dispatchers.IO) {
+                _currentProduct.value = productsServiceInt.getProductById(productId = productId)
+            }
+        } catch (e: Exception) {
+            logE("${this.javaClass.name} -> ${object{}.javaClass.enclosingMethod?.name}, ${e.message}")
+        }
+    }
 
     fun loadAllSelectedProducts() {
         try {

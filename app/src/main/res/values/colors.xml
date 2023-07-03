@@ -11,6 +11,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="white_transparent">#E6FFFFFF</color>
     <color name="back">#FFFFFFFF</color>
+    <color name="transparent">#00FFFFFF</color>
     <color name="ripple_color">#CDCDCD</color>
     <color name="gray">#C3C3C3</color>
     <color name="back_light_gray">#F8F8F8</color>
