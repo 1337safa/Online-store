@@ -31,4 +31,8 @@
     <string name="price">Цена</string>
     <string name="sell_my_product">Продать мой товар</string>
     <string name="selling_product">Продажа товара</string>
+    <string name="save">Сохранить</string>
+    <string name="add_main_product_photo">Добавьте основную фотографию</string>
+    <string name="adding_product_img">Добавление изображений</string>
+    <string name="add_more_imgs">Добавьте еще изображений</string>
 </resources>

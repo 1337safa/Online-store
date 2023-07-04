@@ -30,6 +30,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableEnd="@drawable/ic_next"
+                android:background="@drawable/main_shape_with_ripple_effect"
+                android:padding="@dimen/margin_small"
                 android:drawablePadding="@dimen/margin_normal"
                 android:gravity="center_vertical"
                 android:text="@string/add_product_img"

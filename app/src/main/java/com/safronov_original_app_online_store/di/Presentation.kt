@@ -5,6 +5,8 @@ import com.safronov_original_app_online_store.presentation.fragment.home_page.on
 import com.safronov_original_app_online_store.presentation.fragment.home_page.product_category.view_model.FragmentProductCategoryVM
 import com.safronov_original_app_online_store.presentation.fragment.home_page.product_details.view_model.FragmentProductDetailsVM
 import com.safronov_original_app_online_store.presentation.fragment.home_page.selected_product_history.view_model.FragmentSelectedProductHistoryViewModel
+import com.safronov_original_app_online_store.presentation.fragment.home_page.sell_product.add_product_photo.view_model.FragmentAddProductPhotoVM
+import com.safronov_original_app_online_store.presentation.fragment.home_page.sell_product.view_model.FragmentSellProductVM
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -42,6 +44,16 @@ val presentationDi = module {
         FragmentSelectedProductHistoryViewModel(
             productsServiceInt = get()
         )
+    }
+
+    viewModel<FragmentSellProductVM> {
+        FragmentSellProductVM(
+            productsServiceInt = get()
+        )
+    }
+
+    viewModel<FragmentAddProductPhotoVM> {
+        FragmentAddProductPhotoVM()
     }
 
 }
