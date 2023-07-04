@@ -8,5 +8,6 @@ class FragmentSellProductVM(
 ): ViewModel() {
 
     var currentProductMainPhoto: String? = null
+    var currentSecondaryProductPhotos: List<String>? = null
 
 }

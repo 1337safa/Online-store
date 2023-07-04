@@ -25,7 +25,7 @@
             android:paddingEnd="@dimen/margin_small">
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_add_img"
+                android:id="@+id/tv_add_product_img"
                 style="@style/text_style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_small"
                 android:background="@color/back"
-                app:boxStrokeColor="@color/black">
+                app:suffixTextColor="@color/gray">
 
                 <com.google.android.material.textfield.TextInputEditText
                     style="@style/edtv_style"
@@ -52,7 +52,8 @@
                     android:layout_height="wrap_content"
                     android:background="@color/back"
                     android:hint="@string/product_name"
-                    android:inputType="textShortMessage" />
+                    android:inputType="textShortMessage"
+                    android:textColor="@color/text" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -62,7 +63,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_normal"
-                android:background="@color/back">
+                android:background="@color/back"
+                app:suffixTextColor="@color/black">
 
                 <com.google.android.material.textfield.TextInputEditText
                     style="@style/edtv_style"

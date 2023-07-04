@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.os.bundleOf
@@ -17,10 +16,12 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.safronov_original_app_online_store.R
 import com.safronov_original_app_online_store.core.extensions.logE
+import com.safronov_original_app_online_store.core.extensions.snackS
 import com.safronov_original_app_online_store.databinding.FragmentAddProductPhotoBinding
-import com.safronov_original_app_online_store.presentation.fragment.home_page.sell_product.add_product_photo.rcv.RcvProductPhotos
+import com.safronov_original_app_online_store.presentation.fragment.home_page.sell_product.add_product_photo.models.SelectedProductPhoto
+import com.safronov_original_app_online_store.presentation.fragment.home_page.sell_product.add_product_photo.rcv.RcvSecondaryProductPhotos
 import com.safronov_original_app_online_store.presentation.fragment.home_page.sell_product.add_product_photo.rcv.RcvProductPhotosInt
-import com.safronov_original_app_online_store.presentation.fragment.home_page.sell_product.add_product_photo.rcv.models.Photo
+import com.safronov_original_app_online_store.presentation.fragment.home_page.sell_product.add_product_photo.rcv.models.RcvSecondaryProductPhotosModel
 import com.safronov_original_app_online_store.presentation.fragment.home_page.sell_product.add_product_photo.view_model.FragmentAddProductPhotoVM
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.launch
@@ -30,23 +31,34 @@ class FragmentAddProductPhoto : Fragment(), RcvProductPhotosInt {
 
     private var _binding: FragmentAddProductPhotoBinding? = null
     private val binding get() = _binding!!
-    private val rcvProductPhotos = RcvProductPhotos(this)
+    private val rcvSecondaryProductPhotos = RcvSecondaryProductPhotos(this)
 
     private val fragmentAddProductPhotoVM by viewModel<FragmentAddProductPhotoVM>()
     private var pickProductMainImgActivityResultLauncher: ActivityResultLauncher<Intent>? = null
-    private var pickSecondaryProductImgActivityResultLauncher: ActivityResultLauncher<Intent>? = null
+    private var pickSecondaryProductImgActivityResultLauncher: ActivityResultLauncher<Intent>? =
+        null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         try {
-            fragmentAddProductPhotoVM.saveProductMainPhoto(getArgsAsProductMainPhoto())
+            val selectedProductPhoto = getArgsSelectedAsProductPhoto()
+            if (selectedProductPhoto != null) {
+                if (selectedProductPhoto.mainProductPhoto != null) {
+                    fragmentAddProductPhotoVM.saveProductMainPhoto(selectedProductPhoto.mainProductPhoto)
+                }
+                if (selectedProductPhoto.secondaryProductPhotos != null) {
+                    fragmentAddProductPhotoVM.saveSecondaryProductPhotos(
+                        selectedProductPhoto.secondaryProductPhotos ?: emptyList()
+                    )
+                }
+            }
         } catch (e: Exception) {
-            logE("${this.javaClass.name} -> ${object{}.javaClass.enclosingMethod?.name}, ${e.message}")
+            logE("${this.javaClass.name} -> ${object {}.javaClass.enclosingMethod?.name}, ${e.message}")
         }
     }
 
-    private fun getArgsAsProductMainPhoto(): String? {
-        return arguments?.getString(DEFAULT_PRODUCT_MAIN_PHOTO, null)
+    private fun getArgsSelectedAsProductPhoto(): SelectedProductPhoto? {
+        return arguments?.getSerializable(SELECTED_PRODUCT_PHOTO) as SelectedProductPhoto?
     }
 
     override fun onCreateView(
@@ -58,18 +70,34 @@ class FragmentAddProductPhoto : Fragment(), RcvProductPhotosInt {
             initRcv()
             prepareView()
         } catch (e: Exception) {
-            logE("${this.javaClass.name} -> ${object{}.javaClass.enclosingMethod?.name}, ${e.message}")
+            logE("${this.javaClass.name} -> ${object {}.javaClass.enclosingMethod?.name}, ${e.message}")
         }
         return binding.root
     }
 
     private fun initRcv() {
         binding.rcvMoreImgs.layoutManager = GridLayoutManager(requireContext(), 2)
-        binding.rcvMoreImgs.adapter = rcvProductPhotos
-        rcvProductPhotos.addPhotoToShowToAddNewPhoto(Photo(
-            viewType = RcvProductPhotos.VIEW_TYPE_TO_SHOW_TO_ADD_NEW_IMG,
-            imgResource = R.drawable.ic_add_photo
-        ))
+        binding.rcvMoreImgs.adapter = rcvSecondaryProductPhotos
+        rcvSecondaryProductPhotos.addPhotoToShowToAddNewPhoto(
+            RcvSecondaryProductPhotosModel.ImgToShowToAddNewSecondaryProductPhoto(
+                imgResource = R.drawable.ic_add_photo
+            )
+        )
+        val allSecondaryProductPhotos = fragmentAddProductPhotoVM.getSecondaryProductPhotos()
+        if (allSecondaryProductPhotos.isNotEmpty()) {
+            val mListOfRcvSecondaryProductPhotosModel =
+                mutableListOf<RcvSecondaryProductPhotosModel.SecondaryProductPhoto>()
+            allSecondaryProductPhotos.forEach {
+                mListOfRcvSecondaryProductPhotosModel.add(
+                    RcvSecondaryProductPhotosModel.SecondaryProductPhoto(
+                        imgUrl = it
+                    )
+                )
+            }
+            rcvSecondaryProductPhotos.addListOfSecondaryProductPhotos(
+                mListOfRcvSecondaryProductPhotosModel.toList()
+            )
+        }
     }
 
     private fun prepareView() {
@@ -85,45 +113,68 @@ class FragmentAddProductPhoto : Fragment(), RcvProductPhotosInt {
             productMainPhotoListener()
             btnSaveListener()
         } catch (e: Exception) {
-            logE("${this.javaClass.name} -> ${object{}.javaClass.enclosingMethod?.name}, ${e.message}")
+            logE("${this.javaClass.name} -> ${object {}.javaClass.enclosingMethod?.name}, ${e.message}")
         }
     }
 
     private fun pickSecondaryProductImgActivityResultLauncherListener() {
-        pickSecondaryProductImgActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            if (it.resultCode == Activity.RESULT_OK && it.data?.data != null) {
-                fragmentAddProductPhotoVM.addProductPhoto(it.data?.data.toString())
-                rcvProductPhotos.addPhoto(Photo(
-                    viewType = RcvProductPhotos.VIEW_TYPE_TO_SHOW_IMG,
-                    imgUrl = it.data?.data.toString()
-                ))
-            } else {
-                logE("${this.javaClass.name} -> ${object{}.javaClass.enclosingMethod?.name}, something went wrong when getting product photo, result code: ${it.resultCode}, data: ${it.data}")
+        pickSecondaryProductImgActivityResultLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                if (it.resultCode == Activity.RESULT_OK && it.data?.data != null) {
+                    rcvSecondaryProductPhotos.addSecondaryProductPhoto(
+                        rcvSecondaryProductPhotosModel = RcvSecondaryProductPhotosModel.SecondaryProductPhoto(
+                            imgUrl = it.data?.data.toString()
+                        )
+                    )
+                } else {
+                    logE("${this.javaClass.name} -> ${object {}.javaClass.enclosingMethod?.name}, something went wrong when getting product photo, result code: ${it.resultCode}, data: ${it.data}")
+                }
             }
-        }
     }
 
     private fun pickProductMainImgActivityResultLauncherListener() {
-        pickProductMainImgActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            if (it.resultCode == Activity.RESULT_OK && it.data?.data != null) {
-                fragmentAddProductPhotoVM.saveProductMainPhoto(it.data?.data.toString())
-            } else {
-                logE("${this.javaClass.name} -> ${object{}.javaClass.enclosingMethod?.name}, something went wrong when getting product main photo, result code: ${it.resultCode}, data: ${it.data}")
+        pickProductMainImgActivityResultLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                if (it.resultCode == Activity.RESULT_OK && it.data?.data != null) {
+                    fragmentAddProductPhotoVM.saveProductMainPhoto(it.data?.data.toString())
+                } else {
+                    logE("${this.javaClass.name} -> ${object {}.javaClass.enclosingMethod?.name}, something went wrong when getting product main photo, result code: ${it.resultCode}, data: ${it.data}")
+                }
             }
-        }
     }
 
     private fun btnSaveListener() {
         binding.btnSave.setOnClickListener {
             val productMainPhoto = fragmentAddProductPhotoVM.productMainPhoto.value
-            if (productMainPhoto != null) {
-                parentFragmentManager.setFragmentResult(REQUEST_KEY_FOR_GET_PHOTOS, bundleOf(
-                    NEW_PRODUCT_MAIN_PHOTO to productMainPhoto
-                ))
+            val productSecondaryPhotos = getListOfPhotosAsStringsBySecondaryProductPhotos(rcvSecondaryProductPhotos.getListOfSecondaryProductPhotos())
+            if (productMainPhoto != null && productSecondaryPhotos.isNotEmpty()) {
+                val selectedProductPhoto = SelectedProductPhoto(
+                    mainProductPhoto = productMainPhoto.toString(),
+                    secondaryProductPhotos = productSecondaryPhotos
+                )
+                parentFragmentManager.setFragmentResult(
+                    REQUEST_FOR_GET_PRODUCT_PHOTOS, bundleOf(
+                        SELECTED_PRODUCT_PHOTO to selectedProductPhoto
+                    )
+                )
+                snackS(msg = getString(R.string.added_product_photos), binding.root)
             } else {
-                Snackbar.make(binding.root, getString(R.string.add_main_product_photo), Snackbar.LENGTH_SHORT).show()
+                if (productMainPhoto?.isEmpty() == true) {
+                    snackS(msg = getString(R.string.add_main_product_photo), binding.root)
+                }
+                if (productSecondaryPhotos.isEmpty()) {
+                    snackS(msg = getString(R.string.add_secondary_product_photo), binding.root)
+                }
             }
         }
+    }
+
+    private fun getListOfPhotosAsStringsBySecondaryProductPhotos(listOfSecondaryProductPhotos: List<RcvSecondaryProductPhotosModel.SecondaryProductPhoto>): List<String> {
+        val mListOfPhotos = mutableListOf<String>()
+        listOfSecondaryProductPhotos.forEach {
+            mListOfPhotos.add(it.imgUrl)
+        }
+        return mListOfPhotos.toList()
     }
 
     private fun productMainPhotoListener() {
@@ -151,11 +202,11 @@ class FragmentAddProductPhoto : Fragment(), RcvProductPhotosInt {
         pickProductMainImgActivityResultLauncher?.launch(intent)
     }
 
-    override fun clickOnButtonToAddNewProductImg() {
+    override fun clickOnItemToAddNewSecondaryProductPhoto() {
         try {
             launchActivityResultForPickSecondaryProductImg()
         } catch (e: Exception) {
-            logE("${this.javaClass.name} -> ${object{}.javaClass.enclosingMethod?.name}, ${e.message}")
+            logE("${this.javaClass.name} -> ${object {}.javaClass.enclosingMethod?.name}, ${e.message}")
         }
     }
 
@@ -173,10 +224,9 @@ class FragmentAddProductPhoto : Fragment(), RcvProductPhotosInt {
 
     companion object {
         @JvmStatic
-        fun newInstance() =  FragmentAddProductPhoto()
-        const val REQUEST_KEY_FOR_GET_PHOTOS = "Request key for get photos"
-        const val NEW_PRODUCT_MAIN_PHOTO = "New product main photo"
-        const val DEFAULT_PRODUCT_MAIN_PHOTO = "Default product main photo"
+        fun newInstance() = FragmentAddProductPhoto()
+        const val REQUEST_FOR_GET_PRODUCT_PHOTOS = "Request for get product photo"
+        const val SELECTED_PRODUCT_PHOTO = "Selected product photos"
         private const val INTENT_TYPE_FOR_CHOOSE_IMG = "image/*"
     }
 

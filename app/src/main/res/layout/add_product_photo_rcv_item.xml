@@ -16,6 +16,8 @@
         android:drawingCacheQuality="high"
         android:scaleType="center"
         android:adjustViewBounds="true"
+        app:shapeAppearanceOverlay="@style/product_img_shape"
+        android:background="@drawable/main_shape_with_ripple_effect"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

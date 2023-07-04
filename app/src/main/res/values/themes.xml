@@ -19,4 +19,9 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
+    <style name="AppTheme.Dark.Toolbar" parent="Widget.AppCompat.Toolbar">
+        <item name="android:textColor">@color/gray</item>
+    </style>
+
 </resources>

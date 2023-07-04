@@ -33,6 +33,9 @@
     <string name="selling_product">Продажа товара</string>
     <string name="save">Сохранить</string>
     <string name="add_main_product_photo">Добавьте основную фотографию</string>
-    <string name="adding_product_img">Добавление изображений</string>
-    <string name="add_more_imgs">Добавьте еще изображений</string>
+    <string name="adding_product_img">Добавление фотографий</string>
+    <string name="add_more_imgs">Добавьте еще фотографий</string>
+    <string name="add_secondary_product_photo">Добавьте второстепенную фотографию</string>
+    <string name="added_product_photos">Фотографии продукта сохранены!</string>
+    <string name="add_secondary_product_photos">Добавьте второстепенные фотографии</string>
 </resources>

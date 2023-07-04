@@ -9,15 +9,16 @@ class FragmentAddProductPhotoVM(): ViewModel() {
     private val _productMainPhoto = MutableStateFlow<String?>(null)
     val productMainPhoto = _productMainPhoto.asStateFlow()
 
-    private val _productPhotos = MutableStateFlow<MutableList<String>?>(null)
-    val productPhotos = _productPhotos.asStateFlow()
+    private var secondaryProductPhotos: MutableList<String> = mutableListOf()
+
+    fun getSecondaryProductPhotos() = secondaryProductPhotos
 
     fun saveProductMainPhoto(photo: String?) {
         _productMainPhoto.value = photo
     }
 
-    fun addProductPhoto(photo: String) {
-        _productPhotos.value?.add(photo) ?: emptyList<String>().toMutableList().add(photo)
+    fun saveSecondaryProductPhotos(list: List<String>) {
+        secondaryProductPhotos = list.toMutableList()
     }
 
 }

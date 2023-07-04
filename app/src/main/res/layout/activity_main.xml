@@ -18,7 +18,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_back"
         app:subtitleTextColor="@color/text"
-        app:tint="@color/black"
+        app:tint="@color/hint"
+        app:tintMode="src_in"
         app:title="@string/app_name"
         app:titleTextAppearance="@style/tool_bar_text"
         app:titleTextColor="@color/text" />
