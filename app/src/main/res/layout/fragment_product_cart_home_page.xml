@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".presentation.fragment.home_page.online_search_product.FragmentOnlineProductSearch"
+    tools:context=".presentation.fragment.home_page.product_cart.FragmentProductCartHomePage"
     android:background="@color/back">
 
     <androidx.core.widget.NestedScrollView
@@ -21,7 +21,7 @@
             android:orientation="vertical">
 
             <androidx.appcompat.widget.SearchView
-                android:id="@+id/srch_search_product"
+                android:id="@+id/srch_search_cart_items"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_small"
@@ -39,7 +39,7 @@
                 app:searchIcon="@drawable/ic_search" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rcv_products"
+                android:id="@+id/rcv_cart_items"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"

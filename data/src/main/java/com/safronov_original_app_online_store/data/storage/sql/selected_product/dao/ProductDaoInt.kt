@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-import com.safronov_original_app_online_store.data.storage.models.SelectedProductEntity
+import com.safronov_original_app_online_store.data.storage.models.product.SelectedProductEntity
 import com.safronov_original_app_online_store.data.storage.models.consts.TableNames
 import kotlinx.coroutines.flow.Flow
 

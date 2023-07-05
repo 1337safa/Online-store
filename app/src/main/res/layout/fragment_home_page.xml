@@ -42,7 +42,7 @@
                     android:drawablePadding="12dp"
                     android:minHeight="@dimen/min_height"
                     android:background="@drawable/search_view_shape"
-                    android:hint="@string/brand_product_category"
+                    android:hint="@string/search_hint"
                     android:drawableStart="@drawable/ic_search" />
 
                 <androidx.recyclerview.widget.RecyclerView

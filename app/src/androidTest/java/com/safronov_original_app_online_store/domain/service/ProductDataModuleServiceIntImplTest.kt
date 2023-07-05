@@ -68,7 +68,7 @@ class ProductDataModuleServiceIntImplTest {
         productServiceInt.insertSelectedProduct(selectedProduct)
         val selectedProducts = productServiceInt.getSelectedProductsByTitle("Title")
         Assert.assertEquals(selectedProducts.first().title, selectedProduct.title)
-        productServiceInt.insertSelectedProduct(selectedProduct)
+        productServiceInt.deleteSelectedProduct(selectedProduct)
         Assert.assertTrue(selectedProducts.size - 1 == 0)
     }
 

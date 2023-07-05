@@ -8,12 +8,13 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.navOptions
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.safronov_original_app_online_store.R
 import com.safronov_original_app_online_store.core.extensions.logE
+import com.safronov_original_app_online_store.core.extensions.toastS
 import com.safronov_original_app_online_store.databinding.FragmentProductDetailsBinding
+import com.safronov_original_app_online_store.domain.model.cart.CartProduct
 import com.safronov_original_app_online_store.domain.model.product.Product
 import com.safronov_original_app_online_store.domain.model.product.ProductInfo
 import com.safronov_original_app_online_store.domain.model.product.SelectedProduct
@@ -48,7 +49,7 @@ class FragmentProductDetails : Fragment(), RcvSelectedProductsInt {
             initRcv()
             initViewPager()
         } catch (e: Exception) {
-            logE("${this.javaClass.name} -> ${object{}.javaClass.enclosingMethod?.name} -> ${e.message}")
+            logE("${this.javaClass.name} -> ${object {}.javaClass.enclosingMethod?.name} -> ${e.message}")
         }
         return binding.root
     }
@@ -104,8 +105,27 @@ class FragmentProductDetails : Fragment(), RcvSelectedProductsInt {
         try {
             currentProductListener()
             allSelectedProductListener()
+            btnAddToCartListener()
         } catch (e: Exception) {
-            logE("${this.javaClass.name} -> ${object{}.javaClass.enclosingMethod?.name}, ${e.message}")
+            logE("${this.javaClass.name} -> ${object {}.javaClass.enclosingMethod?.name}, ${e.message}")
+        }
+    }
+
+    private fun btnAddToCartListener() {
+        binding.btnAddToCart.setOnClickListener {
+            val currentProduct = fragmentProductDetailsVM.currentProduct.value
+            if (currentProduct != null) {
+                val newCartProduct = CartProduct(
+                    productId = currentProduct.id.toString(),
+                    price = currentProduct.price,
+                    thumbnail = currentProduct.thumbnail,
+                    title = currentProduct.title
+                )
+                fragmentProductDetailsVM.insertProductToCart(cartProduct = newCartProduct)
+                toastS(getString(R.string.product_added_to_cart))
+            } else {
+                logE("${this.javaClass.name} -> ${object {}.javaClass.enclosingMethod?.name}, current product equals null!")
+            }
         }
     }
 
@@ -147,7 +167,7 @@ class FragmentProductDetails : Fragment(), RcvSelectedProductsInt {
                 )
             )
         } catch (e: Exception) {
-            logE("${this.javaClass.name} -> ${object{}.javaClass.enclosingMethod?.name}, ${e.message}")
+            logE("${this.javaClass.name} -> ${object {}.javaClass.enclosingMethod?.name}, ${e.message}")
         }
     }
 
@@ -159,6 +179,7 @@ class FragmentProductDetails : Fragment(), RcvSelectedProductsInt {
     companion object {
         @JvmStatic
         fun newInstance() = FragmentProductDetails()
+
         /**
          * Fragment [FragmentProductDetails] takes on this [PRODUCT_ID_TO_SHOW_PRODUCT_DETAILS]
          * an int that indicates the product ID to view full product information */

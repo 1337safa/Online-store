@@ -1,12 +1,9 @@
 package com.safronov_original_app_online_store.data.storage.sql.selected_product
 
 import com.safronov_original_app_online_store.data.storage.exception.StorageException
-import com.safronov_original_app_online_store.data.storage.models.SelectedProductEntity
-import com.safronov_original_app_online_store.data.storage.models.converters.ProductConverter
+import com.safronov_original_app_online_store.data.storage.models.product.SelectedProductEntity
 import com.safronov_original_app_online_store.data.storage.sql.selected_product.dao.ProductDaoInt
-import com.safronov_original_app_online_store.domain.model.product.SelectedProduct
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 
 class StorageProductApiIntImpl(
     private val productDaoInt: ProductDaoInt,

@@ -9,7 +9,7 @@
     <string name="filters">Фильтры</string>
     <string name="nike_example">Nike Air Force 1\'07 Premium</string>
     <string name="about_product">О товаре</string>
-    <string name="brand_product_category">Бренд, товар, категория</string>
+    <string name="search_hint">Поиск...</string>
     <string name="product_details">Информация о продукте</string>
     <string name="category">Категория</string>
     <string name="brand">Бренд</string>
@@ -47,5 +47,9 @@
     <string name="description_of_the_alert_that_user_can_not_add_new_product">Здравствуйте! К сожалению, у нашего приложения есть ограничение, о котором мы хотим вам сообщить.  Ограничение состоит в том, что сайт\n\nhttps://dummyjson.com/\n\nс которым работает наше приложение не поддерживает добавление новых товаров. Это означает, что мы не можем предоставить возможность пользователям добавлять новые товары через эту платформу. \n\nМы понимаем, что это может быть неудобно для вас, и приносим извинения за ограничения.</string>
     <string name="important_alert">Важное оповещение</string>
     <string name="close">Закрыть</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="product_added_to_cart">Товар добавлен в карзину!</string>
+    <string name="your_cart">Ваша корзина</string>
 
 </resources>

@@ -1,6 +1,6 @@
 package com.safronov_original_app_online_store.data.storage.sql.selected_product
 
-import com.safronov_original_app_online_store.data.storage.models.SelectedProductEntity
+import com.safronov_original_app_online_store.data.storage.models.product.SelectedProductEntity
 import kotlinx.coroutines.flow.Flow
 
 interface StorageProductApiInt {

@@ -1,4 +1,4 @@
-package com.safronov_original_app_online_store.presentation.fragment.home_page.home_page.rcv
+package com.safronov_original_app_online_store.presentation.fragment.home_page.product_cart.rcv
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,34 +6,34 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.safronov_original_app_online_store.databinding.ProductRcvItemBinding
-import com.safronov_original_app_online_store.domain.model.product.Product
+import com.safronov_original_app_online_store.domain.model.cart.CartProduct
 import com.squareup.picasso.Picasso
 
-class RcvAllProducts(
-    private val rcvAllProductsInt: RcvAllProductsInt
-): ListAdapter<Product, RcvAllProducts.AllProductsViewHolder>(AllProductsDiffUtil()) {
+class RcvAllCartItems(
+    private val rcvAllCartItemsInt: RcvAllCartItemsInt
+): ListAdapter<CartProduct, RcvAllCartItems.AllCartItemsViewHolder>(AllCartItemsDiffUtil()) {
 
-    class AllProductsViewHolder(
+    class AllCartItemsViewHolder(
         val binding: ProductRcvItemBinding
     ): RecyclerView.ViewHolder(binding.root) {  }
 
-    class AllProductsDiffUtil(): DiffUtil.ItemCallback<Product>() {
-        override fun areItemsTheSame(oldItem: Product, newItem: Product): Boolean {
-            return oldItem.id == newItem.id
+    class AllCartItemsDiffUtil(): DiffUtil.ItemCallback<CartProduct>() {
+        override fun areItemsTheSame(oldItem: CartProduct, newItem: CartProduct): Boolean {
+            return oldItem.productId == newItem.productId
         }
 
-        override fun areContentsTheSame(oldItem: Product, newItem: Product): Boolean {
+        override fun areContentsTheSame(oldItem: CartProduct, newItem: CartProduct): Boolean {
             return oldItem == newItem
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AllProductsViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AllCartItemsViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ProductRcvItemBinding.inflate(inflater, parent, false)
-        return AllProductsViewHolder(binding)
+        return AllCartItemsViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: AllProductsViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: AllCartItemsViewHolder, position: Int) {
         if (holder.adapterPosition != RecyclerView.NO_POSITION) {
             Picasso.get().load(this.currentList[holder.adapterPosition].thumbnail).into(holder.binding.imgProductImg)
             val price = "${this.currentList[holder.adapterPosition].price}$"
@@ -41,7 +41,7 @@ class RcvAllProducts(
             holder.binding.tvProductName.text = this.currentList[holder.adapterPosition].title
             holder.itemView.setOnClickListener {
                 if (holder.adapterPosition != RecyclerView.NO_POSITION) {
-                    rcvAllProductsInt.onProductClick(this.currentList[holder.adapterPosition])
+                    rcvAllCartItemsInt.onCartItemClick(this.currentList[holder.adapterPosition])
                 }
             }
         } else {

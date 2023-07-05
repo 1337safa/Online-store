@@ -1,6 +1,6 @@
 package com.safronov_original_app_online_store.data.storage.models.converters
 
-import com.safronov_original_app_online_store.data.storage.models.SelectedProductEntity
+import com.safronov_original_app_online_store.data.storage.models.product.SelectedProductEntity
 import com.safronov_original_app_online_store.domain.model.product.Product
 import com.safronov_original_app_online_store.domain.model.product.SelectedProduct
 

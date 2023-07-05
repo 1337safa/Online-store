@@ -2,6 +2,7 @@ package com.safronov_original_app_online_store.di
 
 import com.safronov_original_app_online_store.presentation.fragment.home_page.home_page.view_model.FragmentHomePageVM
 import com.safronov_original_app_online_store.presentation.fragment.home_page.online_search_product.view_model.FragmentOnlineProductSearchVM
+import com.safronov_original_app_online_store.presentation.fragment.home_page.product_cart.view_model.FragmentProductCartHomePageVM
 import com.safronov_original_app_online_store.presentation.fragment.home_page.product_category.view_model.FragmentProductCategoryVM
 import com.safronov_original_app_online_store.presentation.fragment.home_page.product_details.view_model.FragmentProductDetailsVM
 import com.safronov_original_app_online_store.presentation.fragment.home_page.selected_product_history.view_model.FragmentSelectedProductHistoryViewModel
@@ -22,7 +23,8 @@ val presentationDi = module {
     
     viewModel<FragmentProductDetailsVM> {
         FragmentProductDetailsVM(
-            productsServiceInt = get()
+            productsServiceInt = get(),
+            cartServiceInt = get()
         )
     }
 
@@ -54,6 +56,12 @@ val presentationDi = module {
 
     viewModel<FragmentAddProductPhotoVM> {
         FragmentAddProductPhotoVM()
+    }
+
+    viewModel<FragmentProductCartHomePageVM> {
+        FragmentProductCartHomePageVM(
+            cartServiceInt = get()
+        )
     }
 
 }
