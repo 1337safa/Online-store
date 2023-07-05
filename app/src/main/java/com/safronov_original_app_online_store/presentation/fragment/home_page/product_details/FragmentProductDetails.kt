@@ -5,7 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.safronov_original_app_online_store.R
@@ -14,8 +17,6 @@ import com.safronov_original_app_online_store.databinding.FragmentProductDetails
 import com.safronov_original_app_online_store.domain.model.product.Product
 import com.safronov_original_app_online_store.domain.model.product.ProductInfo
 import com.safronov_original_app_online_store.domain.model.product.SelectedProduct
-import com.safronov_original_app_online_store.presentation.fragment.home_page.home_page.rcv.RcvAllProducts
-import com.safronov_original_app_online_store.presentation.fragment.home_page.home_page.rcv.RcvAllProductsInt
 import com.safronov_original_app_online_store.presentation.fragment.home_page.product_details.rcv.RcvImgSlider
 import com.safronov_original_app_online_store.presentation.fragment.home_page.product_details.rcv.RcvProductInfo
 import com.safronov_original_app_online_store.presentation.fragment.home_page.product_details.rcv.RcvSelectedProducts
@@ -138,7 +139,16 @@ class FragmentProductDetails : Fragment(), RcvSelectedProductsInt {
     }
 
     override fun onSelectedProductClick(selectedProduct: SelectedProduct) {
-        //TODO write code to move to fragment for show product details!
+        try {
+            findNavController().navigate(
+                R.id.fragmentProductDetails,
+                bundleOf(
+                    PRODUCT_ID_TO_SHOW_PRODUCT_DETAILS to selectedProduct.productId.toInt()
+                )
+            )
+        } catch (e: Exception) {
+            logE("${this.javaClass.name} -> ${object{}.javaClass.enclosingMethod?.name}, ${e.message}")
+        }
     }
 
     override fun onDestroyView() {
@@ -149,6 +159,9 @@ class FragmentProductDetails : Fragment(), RcvSelectedProductsInt {
     companion object {
         @JvmStatic
         fun newInstance() = FragmentProductDetails()
+        /**
+         * Fragment [FragmentProductDetails] takes on this [PRODUCT_ID_TO_SHOW_PRODUCT_DETAILS]
+         * an int that indicates the product ID to view full product information */
         const val PRODUCT_ID_TO_SHOW_PRODUCT_DETAILS = "Product ID to show product details"
         private const val DEFAULT_PRODUCT_ID = -1
     }

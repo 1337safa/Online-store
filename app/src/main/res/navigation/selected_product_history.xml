@@ -11,13 +11,9 @@
         android:label="@string/selected_product_history"
         tools:layout="@layout/fragment_selected_product_history" >
         <action
-            android:id="@+id/action_fragmentSelectedProductHistory_to_fragmentProductDetails2"
-            app:destination="@id/fragmentProductDetails2" />
+            android:id="@+id/action_fragmentSelectedProductHistory_to_product_details_graph"
+            app:destination="@id/product_details_graph" />
     </fragment>
-    <fragment
-        android:id="@+id/fragmentProductDetails2"
-        android:name="com.safronov_original_app_online_store.presentation.fragment.home_page.product_details.FragmentProductDetails"
-        android:label="fragment_product_details"
-        tools:layout="@layout/fragment_product_details" />
+    <include app:graph="@navigation/product_details_graph" />
 
 </navigation>

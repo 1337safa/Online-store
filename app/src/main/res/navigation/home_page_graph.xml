@@ -11,21 +11,15 @@
         android:label="@string/app_name"
         tools:layout="@layout/fragment_home_page" >
         <action
-            android:id="@+id/action_fragmentHomePage_to_fragmentProductDetails"
-            app:destination="@id/fragmentProductDetails" />
-        <action
             android:id="@+id/action_fragmentHomePage_to_fragmentProductCategory"
             app:destination="@id/fragmentProductCategory" />
         <action
             android:id="@+id/action_fragmentHomePage_to_fragmentOnlineProductSearch"
             app:destination="@id/fragmentOnlineProductSearch" />
+        <action
+            android:id="@+id/action_fragmentHomePage_to_product_details_graph"
+            app:destination="@id/product_details_graph" />
     </fragment>
-
-    <fragment
-        android:id="@+id/fragmentProductDetails"
-        android:name="com.safronov_original_app_online_store.presentation.fragment.home_page.product_details.FragmentProductDetails"
-        android:label="@string/product_details"
-        tools:layout="@layout/fragment_product_details" />
 
     <fragment
         android:id="@+id/fragmentProductCategory"
@@ -39,9 +33,9 @@
         android:label="@string/search_product"
         tools:layout="@layout/fragment_online_product_search" >
         <action
-            android:id="@+id/action_fragmentOnlineProductSearch_to_fragmentProductDetails"
-            app:destination="@id/fragmentProductDetails" />
-
+            android:id="@+id/action_fragmentOnlineProductSearch_to_product_details_graph"
+            app:destination="@id/product_details_graph" />
     </fragment>
+    <include app:graph="@navigation/product_details_graph" />
 
 </navigation>

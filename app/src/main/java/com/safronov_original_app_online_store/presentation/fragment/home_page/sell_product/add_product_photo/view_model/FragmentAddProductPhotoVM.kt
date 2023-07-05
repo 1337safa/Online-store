@@ -13,6 +13,10 @@ class FragmentAddProductPhotoVM(): ViewModel() {
 
     fun getSecondaryProductPhotos() = secondaryProductPhotos
 
+    fun addSecondaryProductPhoto(photo: String) {
+        secondaryProductPhotos.add(photo)
+    }
+
     fun saveProductMainPhoto(photo: String?) {
         _productMainPhoto.value = photo
     }

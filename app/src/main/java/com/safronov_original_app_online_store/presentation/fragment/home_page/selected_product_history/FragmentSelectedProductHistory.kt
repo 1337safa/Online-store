@@ -96,7 +96,7 @@ class FragmentSelectedProductHistory : Fragment(), RcvSelectedProductsInt {
     override fun onSelectedProductClick(selectedProduct: SelectedProduct) {
         try {
             findNavController().navigate(
-                R.id.action_fragmentSelectedProductHistory_to_fragmentProductDetails2,
+                R.id.action_fragmentSelectedProductHistory_to_product_details_graph,
                 bundleOf(FragmentProductDetails.PRODUCT_ID_TO_SHOW_PRODUCT_DETAILS to selectedProduct.productId.toInt())
             )
         } catch (e: Exception) {

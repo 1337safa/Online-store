@@ -32,8 +32,10 @@
         app:defaultNavHost="true"
         app:layout_constraintBottom_toTopOf="@id/all_content_graph_navigation"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/main_action_bar"
+        app:layout_constraintVertical_bias="1.0"
         app:navGraph="@navigation/all_content_graph"
         tools:layout="@layout/fragment_home_page" />
 

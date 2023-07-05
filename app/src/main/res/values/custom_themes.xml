@@ -53,7 +53,14 @@
         <item name="cornerSizeTopLeft">@dimen/default_radius</item>
         <item name="cornerSizeTopRight">@dimen/default_radius</item>
     </style>
-    
+
+    <style name="main_shape_radius">
+        <item name="cornerSizeTopLeft">@dimen/default_radius</item>
+        <item name="cornerSizeTopRight">@dimen/default_radius</item>
+        <item name="cornerSizeBottomLeft">@dimen/default_radius</item>
+        <item name="cornerSizeBottomRight">@dimen/default_radius</item>
+    </style>
+
     <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
         <item name="colorControlNormal">@color/black</item>
     </style>

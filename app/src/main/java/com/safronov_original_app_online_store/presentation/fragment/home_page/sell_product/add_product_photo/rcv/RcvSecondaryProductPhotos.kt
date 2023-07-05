@@ -117,20 +117,27 @@ class RcvSecondaryProductPhotos(
     }
 
     fun getListOfSecondaryProductPhotos(): List<RcvSecondaryProductPhotosModel.SecondaryProductPhoto> {
-        val mList = mutableListOf<RcvSecondaryProductPhotosModel.SecondaryProductPhoto>()
-        listOfRcvSecondaryProductPhotosModel.forEach {
-            if (it is RcvSecondaryProductPhotosModel.SecondaryProductPhoto) {
-                mList.add(it)
-            }
-        }
-        return mList.toList()
+        return findListOfSecondaryProductPhoto(listOfRcvSecondaryProductPhotosModel)
     }
 
     private fun deleteSecondaryProductPhoto(adapterPosition: Int) {
         val mList = listOfRcvSecondaryProductPhotosModel.toMutableList()
         mList.removeAt(adapterPosition)
         listOfRcvSecondaryProductPhotosModel = mList.toList()
+        rcvProductPhotosInt.userDeletedSecondaryProductPhoto(findListOfSecondaryProductPhoto(listOfRcvSecondaryProductPhotosModel))
         notifyDataSetChanged()
+    }
+
+    private fun findListOfSecondaryProductPhoto(
+        list: List<RcvSecondaryProductPhotosModel>
+    ): List<RcvSecondaryProductPhotosModel.SecondaryProductPhoto> {
+        val mList = mutableListOf<RcvSecondaryProductPhotosModel.SecondaryProductPhoto>()
+        list.forEach {
+            if (it is RcvSecondaryProductPhotosModel.SecondaryProductPhoto) {
+                mList.add(it)
+            }
+        }
+        return mList.toList()
     }
 
     companion object {
