@@ -4,7 +4,11 @@ import com.safronov_original_app_online_store.domain.model.product.AllProducts
 import com.safronov_original_app_online_store.domain.model.product.Product
 import com.safronov_original_app_online_store.domain.model.product.ProductCategories
 import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Header
+import retrofit2.http.Headers
+import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -29,6 +33,12 @@ interface ProductRetrofitInt {
     @GET("/products/{id}")
     suspend fun getProductById(
         @Path("id") productId: String
+    ): Response<Product>
+
+    @Headers("Content-Type: application/json")
+    @POST("/products/add")
+    suspend fun addNewProduct(
+        @Body newProduct: Product
     ): Response<Product>
 
 }

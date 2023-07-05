@@ -12,6 +12,10 @@ class ProductsServiceIntImpl(
     private val productRepositoryInt: ProductRepositoryInt
 ): ProductsServiceInt {
 
+    override suspend fun addNewProduct(newProduct: Product): Product? {
+        return productRepositoryInt.addNewProduct(newProduct = newProduct)
+    }
+
     override suspend fun getProductsCategories(): ProductCategories? {
         return productRepositoryInt.getProductsCategories()
     }

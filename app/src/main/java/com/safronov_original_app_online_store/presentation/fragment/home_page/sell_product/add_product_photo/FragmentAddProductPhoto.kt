@@ -12,10 +12,11 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.safronov_original_app_online_store.R
 import com.safronov_original_app_online_store.core.extensions.logE
-import com.safronov_original_app_online_store.core.extensions.snackS
+import com.safronov_original_app_online_store.core.extensions.toastS
 import com.safronov_original_app_online_store.databinding.FragmentAddProductPhotoBinding
 import com.safronov_original_app_online_store.presentation.fragment.home_page.sell_product.add_product_photo.models.SelectedProductPhoto
 import com.safronov_original_app_online_store.presentation.fragment.home_page.sell_product.add_product_photo.rcv.RcvSecondaryProductPhotos
@@ -166,13 +167,13 @@ class FragmentAddProductPhoto : Fragment(), RcvProductPhotosInt {
                         SELECTED_PRODUCT_PHOTO to selectedProductPhoto
                     )
                 )
-                snackS(msg = getString(R.string.added_product_photos), binding.root)
+                findNavController().popBackStack()
             } else {
                 if (mainProductPhoto?.isEmpty() == true) {
-                    snackS(msg = getString(R.string.add_main_product_photo), binding.root)
+                    toastS(msg = getString(R.string.add_main_product_photo))
                 }
                 if (secondaryProductPhotos.isEmpty()) {
-                    snackS(msg = getString(R.string.add_secondary_product_photo), binding.root)
+                    toastS(msg = getString(R.string.add_secondary_product_photo))
                 }
             }
         }

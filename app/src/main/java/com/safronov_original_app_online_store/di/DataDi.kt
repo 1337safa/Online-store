@@ -2,6 +2,7 @@ package com.safronov_original_app_online_store.di
 
 import android.content.Context
 import androidx.room.Room
+import com.safronov_original_app_online_store.core.android.network_state.NetworkState
 import com.safronov_original_app_online_store.data.network.dummy_api.base_info.DummyApiBaseInfo
 import com.safronov_original_app_online_store.data.network.dummy_api.product.NetworkProductApiInt
 import com.safronov_original_app_online_store.data.network.dummy_api.product.NetworkProductApiIntImpl
@@ -24,6 +25,7 @@ import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import kotlin.math.sin
 
 val dataDi = module {
 
@@ -82,6 +84,10 @@ val dataDi = module {
 
     single {
         ProductRetrofit()
+    }
+
+    single {
+        NetworkState(androidApplication().applicationContext)
     }
 
 }

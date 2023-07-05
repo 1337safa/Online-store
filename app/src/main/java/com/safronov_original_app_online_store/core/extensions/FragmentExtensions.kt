@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 
@@ -17,8 +18,10 @@ fun Fragment.logD(msg: String) {
     Log.d(TAG, msg)
 }
 
-fun Fragment.snackS(msg: String, view: View) {
-    Snackbar.make(view, msg, Snackbar.LENGTH_SHORT).show()
+fun Fragment.toastS(msg: String) {
+    if (context != null) {
+        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+    }
 }
 
 fun Fragment.showInputMethod(view: View) {

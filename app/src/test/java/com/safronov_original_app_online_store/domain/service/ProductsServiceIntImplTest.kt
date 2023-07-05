@@ -5,6 +5,7 @@ import com.safronov_original_app_online_store.domain.model.product.Product
 import com.safronov_original_app_online_store.domain.model.product.ProductCategories
 import com.safronov_original_app_online_store.domain.model.product_category.SelectedProductCategory
 import com.safronov_original_app_online_store.domain.repository.ProductRepositoryInt
+import com.safronov_original_app_online_store.domain.service.product.ProductsServiceInt
 import com.safronov_original_app_online_store.domain.service.product.ProductsServiceIntImpl
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert
@@ -28,7 +29,7 @@ class ProductsServiceIntImplTest {
         val categories: ProductCategories? = productsService.getProductsCategories()
 
         println("Products categories: ${categories}")
-
+        Assert.assertTrue(testProductCategories == categories)
     }
 
     @Test
@@ -111,6 +112,33 @@ class ProductsServiceIntImplTest {
 
         println("Product by id: ${result}")
         Assert.assertTrue(result == someProduct)
+    }
+
+    @Test
+    fun `addNewProduct, should return new added product`() = runBlocking {
+        val testNewProduct = Product(
+            brand = "some brand",
+            category = "some category",
+            description = "description",
+            discountPercentage = 3.3,
+            id = 1337,
+            images = emptyList(),
+            price = 4,
+            rating = 5.0,
+            stock = 4,
+            thumbnail = "",
+            title = "Safronov's LapTop"
+        )
+
+        val rep = mock(ProductRepositoryInt::class.java)
+        Mockito.`when`(rep.addNewProduct(anyOrNull())).thenReturn(testNewProduct)
+
+        val productsServiceInt: ProductsServiceInt = ProductsServiceIntImpl(
+            productRepositoryInt = rep
+        )
+
+        val result = productsServiceInt.addNewProduct(newProduct = testNewProduct)
+        Assert.assertTrue(testNewProduct == result)
     }
 
 }

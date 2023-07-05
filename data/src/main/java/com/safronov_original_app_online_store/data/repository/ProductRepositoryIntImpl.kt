@@ -18,6 +18,10 @@ class ProductRepositoryIntImpl(
     private val productConverter: ProductConverter
 ) : ProductRepositoryInt {
 
+    override suspend fun addNewProduct(newProduct: Product): Product? {
+        return networkProductApiInt.addNewProduct(newProduct = newProduct)
+    }
+
     override suspend fun getProductsCategories(): ProductCategories? {
         return networkProductApiInt.getProductsCategories()
     }

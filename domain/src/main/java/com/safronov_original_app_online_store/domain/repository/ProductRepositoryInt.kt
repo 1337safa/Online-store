@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface ProductRepositoryInt {
 
+    suspend fun addNewProduct(newProduct: Product): Product?
     suspend fun getProductsCategories(): ProductCategories?
     suspend fun getAllProducts(): AllProducts?
     suspend fun getAllProductsByCategory(category: SelectedProductCategory): AllProducts?

@@ -31,8 +31,10 @@
                 android:layout_height="wrap_content"
                 android:drawableEnd="@drawable/ic_next"
                 android:background="@drawable/main_shape_with_ripple_effect"
-                android:padding="@dimen/margin_small"
-                android:drawablePadding="@dimen/margin_normal"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="8dp"
                 android:gravity="center_vertical"
                 android:text="@string/add_product_img"
                 android:textSize="18sp" />
@@ -47,6 +49,7 @@
                 app:suffixTextColor="@color/gray">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtv_product_name"
                     style="@style/edtv_style"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -67,6 +70,7 @@
                 app:suffixTextColor="@color/black">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtv_product_category"
                     style="@style/edtv_style"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -85,6 +89,7 @@
                 android:background="@color/back">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtv_product_brand"
                     style="@style/edtv_style"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -103,12 +108,13 @@
                 android:background="@color/back">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtv_product_price"
                     style="@style/edtv_style"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/back"
-                    android:hint="@string/price"
-                    android:inputType="textShortMessage" />
+                    android:hint="@string/price_as_dollar"
+                    android:inputType="number" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -121,6 +127,7 @@
                 android:background="@color/back">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtv_product_description"
                     style="@style/edtv_style"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

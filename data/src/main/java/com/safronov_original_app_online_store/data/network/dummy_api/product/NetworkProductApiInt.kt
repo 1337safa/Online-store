@@ -7,6 +7,7 @@ import retrofit2.Response
 
 interface NetworkProductApiInt {
 
+    suspend fun addNewProduct(newProduct: Product): Product?
     suspend fun getAllProducts(): AllProducts?
     suspend fun getProductsCategories(): ProductCategories?
     suspend fun getAllProductsByCategory(category: String): AllProducts?
