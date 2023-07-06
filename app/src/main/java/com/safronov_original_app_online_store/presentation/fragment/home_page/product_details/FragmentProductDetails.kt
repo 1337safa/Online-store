@@ -43,7 +43,7 @@ class FragmentProductDetails : Fragment(), RcvSelectedProductsInt {
     ): View? {
         _binding = FragmentProductDetailsBinding.inflate(inflater, container, false)
         try {
-            fragmentProductDetailsVM.loadCurrentProductById(getArgsAsProduct().toString())
+            fragmentProductDetailsVM.loadCurrentProductById(getArgsAsProductId().toString())
             prepareProductInfo()
             loadAllSelectedProducts()
             initRcv()
@@ -54,7 +54,7 @@ class FragmentProductDetails : Fragment(), RcvSelectedProductsInt {
         return binding.root
     }
 
-    private fun getArgsAsProduct(): Int {
+    private fun getArgsAsProductId(): Int {
         return requireArguments().getInt(PRODUCT_ID_TO_SHOW_PRODUCT_DETAILS, DEFAULT_PRODUCT_ID)
     }
 

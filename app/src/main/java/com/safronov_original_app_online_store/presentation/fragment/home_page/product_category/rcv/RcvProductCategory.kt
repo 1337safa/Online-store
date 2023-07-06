@@ -12,8 +12,7 @@ class RcvProductCategory(
     private val rcvProductCategoryInt: RcvProductCategoryInt
 ): ListAdapter<String, RcvProductCategory.ProductCategoryViewHolder>(RcvProductCategory.ProductCategoryDiffUtill()) {
 
-    private var singleSelectedItem = NO_SELECTED_ITEM
-    private var defaultSelectedProduct: String? = null
+    private var selectedProduct: String? = null
 
     class ProductCategoryDiffUtill(): DiffUtil.ItemCallback<String>() {
         override fun areItemsTheSame(
@@ -46,10 +45,10 @@ class RcvProductCategory(
         if (holder.adapterPosition != RecyclerView.NO_POSITION) {
 
             holder.binding.tvCategory.text = currentList[holder.adapterPosition]
-            holder.binding.checkBox.isChecked = currentList[holder.adapterPosition] == defaultSelectedProduct
+            holder.binding.checkBox.isChecked = currentList[holder.adapterPosition] == selectedProduct
             holder.binding.consRoot.setOnClickListener {
                 if (holder.adapterPosition != RecyclerView.NO_POSITION) {
-                    defaultSelectedProduct = currentList[holder.adapterPosition].toString()
+                    selectedProduct = currentList[holder.adapterPosition].toString()
                     rcvProductCategoryInt.onCategoryClick(currentList[holder.adapterPosition], true)
                     notifyDataSetChanged()
                 }
@@ -64,28 +63,14 @@ class RcvProductCategory(
         return currentList.size
     }
 
-    private fun setSingleSelectedItemPosition(adapterPosition: Int) {
-        if (adapterPosition == RecyclerView.NO_POSITION) {
-            return
-        }
-        notifyItemChanged(singleSelectedItem)
-        singleSelectedItem = adapterPosition
-        notifyItemChanged(singleSelectedItem)
-    }
-
     fun setSelectedProductCategory(productCategory: SelectedProductCategory) {
-        defaultSelectedProduct = productCategory.productCategory
+        selectedProduct = productCategory.productCategory
         notifyDataSetChanged()
     }
 
     fun clearSelectedCategory() {
-        singleSelectedItem = NO_SELECTED_ITEM
-        defaultSelectedProduct = null
+        selectedProduct = null
         notifyDataSetChanged()
-    }
-
-    companion object {
-        private const val NO_SELECTED_ITEM = -1
     }
 
 }

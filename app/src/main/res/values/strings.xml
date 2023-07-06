@@ -47,9 +47,24 @@
     <string name="description_of_the_alert_that_user_can_not_add_new_product">Здравствуйте! К сожалению, у нашего приложения есть ограничение, о котором мы хотим вам сообщить.  Ограничение состоит в том, что сайт\n\nhttps://dummyjson.com/\n\nс которым работает наше приложение не поддерживает добавление новых товаров. Это означает, что мы не можем предоставить возможность пользователям добавлять новые товары через эту платформу. \n\nМы понимаем, что это может быть неудобно для вас, и приносим извинения за ограничения.</string>
     <string name="important_alert">Важное оповещение</string>
     <string name="close">Закрыть</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="one_hundred_dollars">100$</string>
     <string name="product_added_to_cart">Товар добавлен в карзину!</string>
     <string name="your_cart">Ваша корзина</string>
+    <string name="buy">Купить</string>
+    <string name="delivery">Доставка</string>
+    <string name="address">Адрес</string>
+    <string name="bank_card">Банковская карта</string>
+    <string name="product_purchase">Покупка товара</string>
+    <string name="delete_from_cart">Удалить этот продукт с вашей корзины</string>
+    <string name="add">Добавить</string>
+    <string name="bank_card_number">Номер банковской карты</string>
+    <string name="validity">Срок действия</string>
+    <string name="three_zeros">000</string>
+    <string name="save_and_choose">Сохранить и выбрать</string>
+    <string name="write_bank_card_number">Напишите номер банковской карты(обычно номер карты расположен на фронтальной части)</string>
+    <string name="write_bank_card_validity">Введите срок действия карты</string>
+    <string name="write_CVC">"Введите CVC "</string>
+    <string name="added_bank_card">Добавлена банковская карта!</string>
+    <string name="CVC">CVC</string>
 
 </resources>

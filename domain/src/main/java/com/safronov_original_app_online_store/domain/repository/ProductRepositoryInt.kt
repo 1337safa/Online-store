@@ -18,7 +18,7 @@ interface ProductRepositoryInt {
 
     suspend fun insertSelectedProduct(selectedProduct: SelectedProduct)
     suspend fun getAllSelectedProducts(): Flow<List<SelectedProduct>>
-    suspend fun getSelectedProductById(productId: String): SelectedProduct
+    suspend fun getSelectedProductById(productId: String): SelectedProduct?
     suspend fun deleteSelectedProduct(selectedProduct: SelectedProduct)
     suspend fun getSelectedProductsByTitle(productTitle: String): List<SelectedProduct>
 

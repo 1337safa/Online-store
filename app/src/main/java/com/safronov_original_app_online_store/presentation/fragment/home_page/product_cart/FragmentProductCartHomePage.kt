@@ -5,11 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.safronov_original_app_online_store.R
 import com.safronov_original_app_online_store.core.extensions.logE
 import com.safronov_original_app_online_store.databinding.FragmentProductCartHomePageBinding
 import com.safronov_original_app_online_store.domain.model.cart.CartProduct
+import com.safronov_original_app_online_store.presentation.fragment.home_page.product_cart.product_purchase.FragmentProductPurchase
 import com.safronov_original_app_online_store.presentation.fragment.home_page.product_cart.rcv.RcvAllCartItems
 import com.safronov_original_app_online_store.presentation.fragment.home_page.product_cart.rcv.RcvAllCartItemsInt
 import com.safronov_original_app_online_store.presentation.fragment.home_page.product_cart.view_model.FragmentProductCartHomePageVM
@@ -68,7 +72,18 @@ class FragmentProductCartHomePage : Fragment(), RcvAllCartItemsInt {
     }
 
     override fun onCartItemClick(cartProduct: CartProduct) {
-        //TODO write to code to go to the fragment to show details of cart item!
+        try {
+            if (cartProduct.productId?.isNotEmpty() == true) {
+                findNavController().navigate(
+                    R.id.action_fragmentProductCartHomePage_to_fragmentProductPurchase,
+                    bundleOf(
+                        FragmentProductPurchase.PRODUCT_ID to cartProduct.productId?.toInt()
+                    )
+                )
+            }
+        } catch (e: Exception) {
+            logE("${this.javaClass.name} -> ${object {}.javaClass.enclosingMethod?.name}, ${e.message}")
+        }
     }
 
     override fun onDestroyView() {

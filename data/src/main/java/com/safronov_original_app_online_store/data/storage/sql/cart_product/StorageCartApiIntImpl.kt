@@ -3,6 +3,7 @@ package com.safronov_original_app_online_store.data.storage.sql.cart_product
 import com.safronov_original_app_online_store.data.storage.exception.StorageException
 import com.safronov_original_app_online_store.data.storage.models.cart_item.CartProductEntity
 import com.safronov_original_app_online_store.data.storage.sql.cart_product.dao.CartProductDaoInt
+import com.safronov_original_app_online_store.domain.model.cart.CartProduct
 import kotlinx.coroutines.flow.Flow
 
 class StorageCartApiIntImpl(
@@ -11,12 +12,17 @@ class StorageCartApiIntImpl(
 
     override suspend fun insertProductToCart(cartProductEntity: CartProductEntity) {
         try {
-            val theSameItemExists = cartProductDaoInt.getCartItemById(productId = cartProductEntity.productId.toString())
-            if (theSameItemExists == null) {
-                cartProductDaoInt.insertProductToCart(cartProductEntity = cartProductEntity)
-            }
+            cartProductDaoInt.insertProductToCart(cartProductEntity = cartProductEntity)
         } catch (e: Exception) {
             throw StorageException("Storage exception when inserting product to cart, ${e.message}", e)
+        }
+    }
+
+    override suspend fun getCartItemById(productId: String): CartProductEntity? {
+        try {
+            return cartProductDaoInt.getCartItemById(productId = productId)
+        } catch (e: Exception) {
+            throw StorageException("Storage exception when getting cart item by id, ${e.message}", e)
         }
     }
 

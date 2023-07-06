@@ -9,7 +9,14 @@ class CartServiceIntImpl(
 ): CartServiceInt {
 
     override suspend fun insertProductToCart(cartProduct: CartProduct) {
-        cartRepositoryInt.insertProductToCart(cartProduct = cartProduct)
+        val theSameItemExists = cartRepositoryInt.getCartItemById(productId = cartProduct.productId.toString())
+        if (theSameItemExists == null) {
+            cartRepositoryInt.insertProductToCart(cartProduct = cartProduct)
+        }
+    }
+
+    override suspend fun getCartItemById(productId: String): CartProduct? {
+        return cartRepositoryInt.getCartItemById(productId = productId)
     }
 
     override suspend fun getAllCartItems(): Flow<List<CartProduct>> {

@@ -58,7 +58,7 @@ class ProductRepositoryIntImpl(
         return selectedProductFlow
     }
 
-    override suspend fun getSelectedProductById(productId: String): SelectedProduct {
+    override suspend fun getSelectedProductById(productId: String): SelectedProduct? {
         return productConverter.convertSelectedProductEntityToSelectedProduct(storageProductApiInt.getSelectedProductById(productId = productId))
     }
 

@@ -8,14 +8,18 @@ class ProductConverter {
 
     fun convertSelectedProductEntityToSelectedProduct(
         selectedProductEntity: SelectedProductEntity?
-    ): SelectedProduct {
-        return SelectedProduct(
-            productId = selectedProductEntity?.productId.toString(),
-            price = selectedProductEntity?.price ?: 0,
-            thumbnail = selectedProductEntity?.thumbnail ?: "",
-            title = selectedProductEntity?.title.toString(),
-            primaryKey = selectedProductEntity?.primaryKey
-        )
+    ): SelectedProduct? {
+        return if (selectedProductEntity != null) {
+            SelectedProduct(
+                productId = selectedProductEntity.productId.toString(),
+                price = selectedProductEntity.price ?: 0,
+                thumbnail = selectedProductEntity.thumbnail ?: "",
+                title = selectedProductEntity.title.toString(),
+                primaryKey = selectedProductEntity.primaryKey
+            )
+        }  else {
+            null
+        }
     }
 
     fun convertSelectedProductToSelectedProductEntity(selectedProduct: SelectedProduct): SelectedProductEntity {

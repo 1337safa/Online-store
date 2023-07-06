@@ -2,6 +2,8 @@ package com.safronov_original_app_online_store.di
 
 import com.safronov_original_app_online_store.presentation.fragment.home_page.home_page.view_model.FragmentHomePageVM
 import com.safronov_original_app_online_store.presentation.fragment.home_page.online_search_product.view_model.FragmentOnlineProductSearchVM
+import com.safronov_original_app_online_store.presentation.fragment.home_page.product_cart.product_purchase.bank_card.view_model.FragmentAddUserBankCardsVM
+import com.safronov_original_app_online_store.presentation.fragment.home_page.product_cart.product_purchase.view_model.FragmentProductPurchaseVM
 import com.safronov_original_app_online_store.presentation.fragment.home_page.product_cart.view_model.FragmentProductCartHomePageVM
 import com.safronov_original_app_online_store.presentation.fragment.home_page.product_category.view_model.FragmentProductCategoryVM
 import com.safronov_original_app_online_store.presentation.fragment.home_page.product_details.view_model.FragmentProductDetailsVM
@@ -61,6 +63,19 @@ val presentationDi = module {
     viewModel<FragmentProductCartHomePageVM> {
         FragmentProductCartHomePageVM(
             cartServiceInt = get()
+        )
+    }
+
+    viewModel<FragmentProductPurchaseVM> {
+        FragmentProductPurchaseVM(
+            bankCardServiceInt = get(),
+            productsServiceInt = get()
+        )
+    }
+
+    viewModel<FragmentAddUserBankCardsVM> {
+        FragmentAddUserBankCardsVM(
+            bankCardsServiceInt = get()
         )
     }
 

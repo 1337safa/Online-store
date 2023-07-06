@@ -1,5 +1,7 @@
 package com.safronov_original_app_online_store.di
 
+import com.safronov_original_app_online_store.domain.service.bank_card.BankCardServiceInt
+import com.safronov_original_app_online_store.domain.service.bank_card.BankCardServiceIntImpl
 import com.safronov_original_app_online_store.domain.service.cart.CartServiceInt
 import com.safronov_original_app_online_store.domain.service.cart.CartServiceIntImpl
 import com.safronov_original_app_online_store.domain.service.product.ProductsServiceIntImpl
@@ -20,6 +22,10 @@ val domainDi = module {
 
     factory<CartServiceInt> {
         CartServiceIntImpl(cartRepositoryInt = get())
+    }
+
+    factory<BankCardServiceInt> {
+        BankCardServiceIntImpl(bankCardRepositoryInt = get())
     }
 
 }

@@ -33,14 +33,17 @@ class ProductsServiceIntImpl(
     }
 
     override suspend fun insertSelectedProduct(selectedProduct: SelectedProduct) {
-        productRepositoryInt.insertSelectedProduct(selectedProduct)
+        val potentialSelectedProductExist = productRepositoryInt.getSelectedProductById(selectedProduct.productId)
+        if (potentialSelectedProductExist == null) {
+            productRepositoryInt.insertSelectedProduct(selectedProduct)
+        }
     }
 
     override suspend fun getAllSelectedProducts(): Flow<List<SelectedProduct>> {
         return productRepositoryInt.getAllSelectedProducts()
     }
 
-    override suspend fun getSelectedProductById(productId: String): SelectedProduct {
+    override suspend fun getSelectedProductById(productId: String): SelectedProduct? {
         return productRepositoryInt.getSelectedProductById(productId = productId)
     }
 

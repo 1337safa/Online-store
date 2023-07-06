@@ -16,6 +16,10 @@ class CartRepositoryIntImpl(
         storageCartApiInt.insertProductToCart(cartProductEntity = cartProductConverter.convertCartProductToCartProductEntity(cartProduct = cartProduct))
     }
 
+    override suspend fun getCartItemById(productId: String): CartProduct? {
+        return cartProductConverter.convertCartProductEntityToCartProduct(storageCartApiInt.getCartItemById(productId = productId))
+    }
+
     override suspend fun getAllCartItems(): Flow<List<CartProduct>> {
         val cartFlow = flow<List<CartProduct>> {
             val result = storageCartApiInt.getAllCartItems()

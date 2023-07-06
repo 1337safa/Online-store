@@ -8,9 +8,11 @@ import com.safronov_original_app_online_store.data.network.dummy_api.product.Net
 import com.safronov_original_app_online_store.data.network.dummy_api.product.NetworkProductApiIntImpl
 import com.safronov_original_app_online_store.data.network.dummy_api.product.retrofit.ProductRetrofit
 import com.safronov_original_app_online_store.data.network.dummy_api.product.retrofit.ProductRetrofitInt
+import com.safronov_original_app_online_store.data.repository.BankCardRepositoryIntImpl
 import com.safronov_original_app_online_store.data.repository.CartRepositoryIntImpl
 import com.safronov_original_app_online_store.data.repository.ProductCategoryRepositoryIntImpl
 import com.safronov_original_app_online_store.data.repository.ProductRepositoryIntImpl
+import com.safronov_original_app_online_store.data.storage.models.converters.BankCardConverter
 import com.safronov_original_app_online_store.data.storage.models.converters.CartProductConverter
 import com.safronov_original_app_online_store.data.storage.models.converters.ProductConverter
 import com.safronov_original_app_online_store.data.storage.shared_preferences.selected_product_category.StorageSelectedProductCategoryApiInt
@@ -19,9 +21,13 @@ import com.safronov_original_app_online_store.data.storage.sql.selected_product.
 import com.safronov_original_app_online_store.data.storage.sql.selected_product.StorageProductApiIntImpl
 import com.safronov_original_app_online_store.data.storage.sql.selected_product.dao.ProductDaoInt
 import com.safronov_original_app_online_store.data.storage.sql.AppStorage
+import com.safronov_original_app_online_store.data.storage.sql.bank_card.StorageBankCardApiInt
+import com.safronov_original_app_online_store.data.storage.sql.bank_card.StorageBankCardApiIntImpl
+import com.safronov_original_app_online_store.data.storage.sql.bank_card.dao.BankCardDaoInt
 import com.safronov_original_app_online_store.data.storage.sql.cart_product.StorageCartApiInt
 import com.safronov_original_app_online_store.data.storage.sql.cart_product.StorageCartApiIntImpl
 import com.safronov_original_app_online_store.data.storage.sql.cart_product.dao.CartProductDaoInt
+import com.safronov_original_app_online_store.domain.repository.BankCardRepositoryInt
 import com.safronov_original_app_online_store.domain.repository.CartRepositoryInt
 import com.safronov_original_app_online_store.domain.repository.ProductCategoryRepositoryInt
 import com.safronov_original_app_online_store.domain.repository.ProductRepositoryInt
@@ -64,6 +70,13 @@ val dataDi = module {
         db.getProductDaoInt()
     }
 
+    single<BankCardRepositoryInt> {
+        BankCardRepositoryIntImpl(
+            storageBankCardApiInt = get(),
+            bankCardConverter = get()
+        )
+    }
+
     single<CartRepositoryInt> {
         CartRepositoryIntImpl(
             cartProductConverter = get(),
@@ -71,8 +84,23 @@ val dataDi = module {
         )
     }
 
+    single<BankCardConverter> {
+        BankCardConverter()
+    }
+
+    single<StorageBankCardApiInt> {
+        StorageBankCardApiIntImpl(
+            bankCardDaoInt = get()
+        )
+    }
+
     single<StorageCartApiInt> {
         StorageCartApiIntImpl(cartProductDaoInt = get())
+    }
+
+    single<BankCardDaoInt> {
+        val appStorage: AppStorage = get()
+        appStorage.getBankCardDaoInt()
     }
 
     single<CartProductDaoInt> {

@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.Flow
 interface StorageCartApiInt {
 
     suspend fun insertProductToCart(cartProductEntity: CartProductEntity)
+    suspend fun getCartItemById(productId: String): CartProductEntity?
     suspend fun getAllCartItems(): Flow<List<CartProductEntity>>?
     suspend fun deleteCartItem(cartProductEntity: CartProductEntity)
 

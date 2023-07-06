@@ -5,14 +5,18 @@ import com.safronov_original_app_online_store.domain.model.cart.CartProduct
 
 class CartProductConverter {
 
-    fun convertCartProductEntityToCartProduct(cartProductEntity: CartProductEntity): CartProduct {
-        return CartProduct(
-            productId = cartProductEntity.productId,
-            price = cartProductEntity.price,
-            thumbnail = cartProductEntity.thumbnail,
-            title = cartProductEntity.title,
-            primaryKey = cartProductEntity.primaryKey
-        )
+    fun convertCartProductEntityToCartProduct(cartProductEntity: CartProductEntity?): CartProduct? {
+        return if (cartProductEntity != null) {
+            CartProduct(
+                productId = cartProductEntity.productId,
+                price = cartProductEntity.price,
+                thumbnail = cartProductEntity.thumbnail,
+                title = cartProductEntity.title,
+                primaryKey = cartProductEntity.primaryKey
+            )
+        } else {
+            null
+        }
     }
 
     fun convertCartProductToCartProductEntity(cartProduct: CartProduct): CartProductEntity {

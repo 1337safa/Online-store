@@ -7,14 +7,11 @@ import kotlinx.coroutines.flow.Flow
 
 class StorageProductApiIntImpl(
     private val productDaoInt: ProductDaoInt,
-): StorageProductApiInt {
+) : StorageProductApiInt {
 
     override suspend fun insertSelectedProduct(selectedProduct: SelectedProductEntity) {
         try {
-            val potentialSelectedProductExist = productDaoInt.getSelectedProductById(selectedProduct.productId.toString())
-            if (potentialSelectedProductExist == null) {
-                productDaoInt.insertSelectedProduct(selectedProduct)
-            }
+            productDaoInt.insertSelectedProduct(selectedProduct)
         } catch (e: Exception) {
             throw StorageException("Storage exception when inserting new selection product", e)
         }
