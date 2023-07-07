@@ -9,7 +9,7 @@ import com.safronov_original_app_online_store.data.storage.sql.bank_card.dao.Ban
 import com.safronov_original_app_online_store.data.storage.sql.cart_product.dao.CartProductDaoInt
 import com.safronov_original_app_online_store.data.storage.sql.selected_product.dao.ProductDaoInt
 
-@Database(entities = [SelectedProductEntity::class, CartProductEntity::class, BankCardEntity::class], version = 3)
+@Database(entities = [SelectedProductEntity::class, CartProductEntity::class, BankCardEntity::class], version = 6)
 abstract class AppStorage(): RoomDatabase() {
 
     abstract fun getProductDaoInt(): ProductDaoInt

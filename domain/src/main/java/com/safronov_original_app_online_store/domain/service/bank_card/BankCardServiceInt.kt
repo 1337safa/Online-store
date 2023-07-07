@@ -5,7 +5,8 @@ import kotlinx.coroutines.flow.Flow
 
 interface BankCardServiceInt {
 
-    suspend fun insertUserBankCard(bankCard: BankCard)
+    suspend fun insertUserBankCard(bankCard: BankCard, bankCardWithTheSameCardNumberExists: () -> Unit, added: () -> Unit)
     suspend fun getAllUserBankCards(): Flow<List<BankCard>>
+    suspend fun getUserBankCardByCardNumber(cardNumber: String): BankCard?
 
 }

@@ -12,10 +12,14 @@ class FragmentAddUserBankCardsVM(
     private val bankCardsServiceInt: BankCardServiceInt
 ): ViewModel() {
 
-    fun insertUserBankCard(bankCard: BankCard) {
+    fun insertUserBankCard(bankCard: BankCard, bankCardWithTheSameCardNumberExists: () -> Unit, added: () -> Unit) {
         try {
             viewModelScope.launch(Dispatchers.IO) {
-                bankCardsServiceInt.insertUserBankCard(bankCard = bankCard)
+                bankCardsServiceInt.insertUserBankCard(bankCard = bankCard, bankCardWithTheSameCardNumberExists = {
+                    bankCardWithTheSameCardNumberExists.invoke()
+                }, added = {
+                    added.invoke()
+                })
             }
         } catch (e: Exception) {
             logE("${this.javaClass.name} -> ${object {}.javaClass.enclosingMethod?.name}, ${e.message}")

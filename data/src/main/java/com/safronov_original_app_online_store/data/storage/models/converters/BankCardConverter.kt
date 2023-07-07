@@ -33,4 +33,17 @@ class BankCardConverter {
         return mList.toList()
     }
 
+    fun convertBankCardEntityToBankCard(bankCardEntity: BankCardEntity?): BankCard? {
+        return if (bankCardEntity == null) {
+            null
+        } else {
+            return BankCard(
+                cardNumber = bankCardEntity.cardNumber,
+                validity = bankCardEntity.validity,
+                CVC = bankCardEntity.CVC,
+                primaryKey = bankCardEntity.primaryKey
+            )
+        }
+    }
+
 }

@@ -10,7 +10,11 @@ class StorageBankCardApiIntImpl(
 ): StorageBankCardApiInt {
 
     override suspend fun insertUserBankCard(bankCardEntity: BankCardEntity) {
-        bankCardDaoInt.insertUserBankCard(bankCardEntity = bankCardEntity)
+        try {
+            bankCardDaoInt.insertUserBankCard(bankCardEntity = bankCardEntity)
+        } catch (e: Exception) {
+            throw StorageException("Storage exception when inserting user bank card, ${e.message}", e)
+        }
     }
     
     override suspend fun getAllUserBankCards(): Flow<List<BankCardEntity>> {
@@ -18,6 +22,14 @@ class StorageBankCardApiIntImpl(
             return bankCardDaoInt.getAllUserBankCards()
         } catch (e: Exception) {
             throw StorageException("Storage exception when getting all user bank cards, ${e.message}", e)
+        }
+    }
+
+    override suspend fun getUserBankCardByCardNumber(cardNumber: String): BankCardEntity? {
+        try {
+            return bankCardDaoInt.getUserBankCardByCardNumber(cardNumber = cardNumber)
+        } catch (e: Exception) {
+            throw StorageException("Storage exception when getting user bank card by card number, ${e.message}", e)
         }
     }
 

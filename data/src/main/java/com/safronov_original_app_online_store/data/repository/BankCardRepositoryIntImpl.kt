@@ -26,4 +26,8 @@ class BankCardRepositoryIntImpl(
         return flowOfListOfBankCards
     }
 
+    override suspend fun getUserBankCardByCardNumber(cardNumber: String): BankCard? {
+        return bankCardConverter.convertBankCardEntityToBankCard(storageBankCardApiInt.getUserBankCardByCardNumber(cardNumber = cardNumber))
+    }
+
 }

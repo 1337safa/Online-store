@@ -48,4 +48,9 @@ class RcvBankCards(
         }
     }
 
+    fun setSelectedBankCard(selectedBankCard: BankCard) {
+        this.selectedBankCard = selectedBankCard
+        notifyDataSetChanged()
+    }
+
 }

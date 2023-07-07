@@ -2,6 +2,7 @@ package com.safronov_original_app_online_store.data.storage.models.converters
 
 import com.safronov_original_app_online_store.data.storage.models.cart_item.CartProductEntity
 import com.safronov_original_app_online_store.domain.model.cart.CartProduct
+import com.safronov_original_app_online_store.domain.model.product.Product
 
 class CartProductConverter {
 
@@ -41,6 +42,15 @@ class CartProductConverter {
             ))
         }
         return mList.toList()
+    }
+
+    fun convertProductToCartProduct(product: Product): CartProduct {
+        return CartProduct(
+            productId = product.id.toString(),
+            price = product.price,
+            thumbnail = product.thumbnail,
+            title = product.title
+        )
     }
 
 }

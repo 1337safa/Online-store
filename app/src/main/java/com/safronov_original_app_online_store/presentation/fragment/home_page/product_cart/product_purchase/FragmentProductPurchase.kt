@@ -8,9 +8,12 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.safronov_original_app_online_store.R
 import com.safronov_original_app_online_store.core.extensions.logE
+import com.safronov_original_app_online_store.databinding.AskUserBinding
 import com.safronov_original_app_online_store.databinding.FragmentProductPurchaseBinding
+import com.safronov_original_app_online_store.databinding.ShowUserAppRestrictionsBinding
 import com.safronov_original_app_online_store.domain.model.bank_card.BankCard
 import com.safronov_original_app_online_store.domain.model.product.Product
 import com.safronov_original_app_online_store.presentation.fragment.home_page.product_cart.product_purchase.rcv.RcvBankCards
@@ -33,6 +36,7 @@ class FragmentProductPurchase : Fragment(), RcvBankCardsInt {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         try {
+            fragmentProductPurchaseVM.savePrimaryKeyOfCartProduct(primaryKey = getArgsAsCartPrimaryKeyOfCartProduct().toString())
             fragmentProductPurchaseVM.loadCurrentProductById(productId = getArgsAsProductId().toString())
         } catch (e: Exception) {
             logE("${this.javaClass.name} -> ${object {}.javaClass.enclosingMethod?.name}, ${e.message}")
@@ -41,6 +45,10 @@ class FragmentProductPurchase : Fragment(), RcvBankCardsInt {
 
     private fun getArgsAsProductId(): Int? {
         return arguments?.getInt(PRODUCT_ID, DEFAULT_PRODUCT_ID)
+    }
+
+    private fun getArgsAsCartPrimaryKeyOfCartProduct(): Int? {
+        return arguments?.getInt(PRIMARY_KEY_OF_CART_PRODUCT, DEFAULT_PRODUCT_ID)
     }
 
     override fun onCreateView(
@@ -61,6 +69,10 @@ class FragmentProductPurchase : Fragment(), RcvBankCardsInt {
     private fun initRcv() {
         binding.rcvUserBankCards.layoutManager = LinearLayoutManager(requireContext())
         binding.rcvUserBankCards.adapter = rcvBankCards
+        val selectedBankCard = fragmentProductPurchaseVM.getSelectedBankCard()
+        if (selectedBankCard != null) {
+            rcvBankCards.setSelectedBankCard(selectedBankCard)
+        }
     }
 
     private fun initViewPager() {
@@ -70,12 +82,68 @@ class FragmentProductPurchase : Fragment(), RcvBankCardsInt {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         try {
+            tvDeleteCurrentProductFromCartListener()
             allUserBankCardsListener()
             currentProductListener()
             tvShowUserBankCardListener()
+            btnBuyProductListener()
         } catch (e: Exception) {
             logE("${this.javaClass.name} -> ${object {}.javaClass.enclosingMethod?.name}, ${e.message}")
         }
+    }
+
+    private fun btnBuyProductListener() {
+        binding.btnBuyProduct.setOnClickListener {
+            showBottomSheetDialogForUserThatItIsNotPossibleToBuyProduct()
+        }
+    }
+
+    private fun showBottomSheetDialogForUserThatItIsNotPossibleToBuyProduct() {
+        val bottomSheetDialog = BottomSheetDialog(requireContext())
+        val bottomSheetBinding = ShowUserAppRestrictionsBinding.inflate(layoutInflater)
+        bottomSheetBinding.tvTitle.text = getString(R.string.important_alert)
+        bottomSheetBinding.tvDescription.text = getString(R.string.description_of_the_alert_that_user_can_not_buy_product)
+        bottomSheetBinding.btnCancel.setOnClickListener {
+            bottomSheetDialog.dismiss()
+        }
+        bottomSheetDialog.setContentView(bottomSheetBinding.root)
+        bottomSheetDialog.create()
+        bottomSheetDialog.show()
+    }
+
+    private fun tvDeleteCurrentProductFromCartListener() {
+        binding.tvDeleteCurrentProductFromCart.setOnClickListener {
+
+            askUserDeleterProductFromCartOrNot(
+                no = {},
+                yes = {
+                    val currentProduct = fragmentProductPurchaseVM.currentProduct.value
+                    if (currentProduct != null) {
+                        fragmentProductPurchaseVM.deleteCurrentProductFromCart(
+                            currentProduct
+                        )
+                    }
+                    findNavController().popBackStack()
+                }
+            )
+
+        }
+    }
+
+    private fun askUserDeleterProductFromCartOrNot(no: () -> Unit, yes: () -> Unit) {
+        val bottomSheetDialog = BottomSheetDialog(requireContext())
+        val bottomSheetBinding = AskUserBinding.inflate(layoutInflater)
+        bottomSheetBinding.btnNo.setOnClickListener {
+            no.invoke()
+            bottomSheetDialog.dismiss()
+        }
+        bottomSheetBinding.btnYes.setOnClickListener {
+            yes.invoke()
+            bottomSheetDialog.dismiss()
+        }
+        bottomSheetDialog.setContentView(bottomSheetBinding.root)
+        bottomSheetDialog.create()
+        bottomSheetDialog.show()
     }
 
     private fun tvShowUserBankCardListener() {
@@ -98,7 +166,7 @@ class FragmentProductPurchase : Fragment(), RcvBankCardsInt {
         rcvImgsSlider.submitList(product.images)
         binding.tvProductPrice.setText("${product.price}$")
         val price = getString(R.string.buy) + " - ${product.price + 100}$"
-        binding.btnAddToCart.text = price
+        binding.btnBuyProduct.text = price
         binding.tvProductName.text = product.title
         binding.tvProductDescription.text = product.description
     }
@@ -114,17 +182,26 @@ class FragmentProductPurchase : Fragment(), RcvBankCardsInt {
     }
 
     override fun onBankCardClick(bankCard: BankCard) {
-        //TODO write code to save user bank card, with which he will pay
+        try {
+            fragmentProductPurchaseVM.saveSelectedBankCard(bankCard = bankCard)
+        } catch (e: Exception) {
+            logE("${this.javaClass.name} -> ${object {}.javaClass.enclosingMethod?.name}, ${e.message}")
+        }
     }
 
     companion object {
         @JvmStatic
         fun newInstance() = FragmentProductPurchase()
+        private const val DEFAULT_PRODUCT_ID = -1
         /**
          * Fragment [FragmentProductPurchase] takes on this [PRODUCT_ID]
          * an int that indicates the product ID to view full product information */
         const val PRODUCT_ID = "Product ID"
-        private const val DEFAULT_PRODUCT_ID = -1
+        /**
+         * [PRIMARY_KEY_OF_CART_PRODUCT] is the ID of the product that is stored in the local database in the cart,
+         * with it this fragment [FragmentProductPurchase] can remove this product from the local database
+         * if the user wants it */
+        const val PRIMARY_KEY_OF_CART_PRODUCT = "Primary key of cart product"
     }
 
 }

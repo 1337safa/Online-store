@@ -7,5 +7,6 @@ interface BankCardRepositoryInt {
 
     suspend fun insertUserBankCard(bankCard: BankCard)
     suspend fun getAllUserBankCards(): Flow<List<BankCard>>
+    suspend fun getUserBankCardByCardNumber(cardNumber: String): BankCard?
 
 }

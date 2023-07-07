@@ -7,5 +7,6 @@ interface StorageBankCardApiInt {
 
     suspend fun insertUserBankCard(bankCardEntity: BankCardEntity)
     suspend fun getAllUserBankCards(): Flow<List<BankCardEntity>>
+    suspend fun getUserBankCardByCardNumber(cardNumber: String): BankCardEntity?
 
 }

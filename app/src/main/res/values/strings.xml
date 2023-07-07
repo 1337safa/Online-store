@@ -44,7 +44,8 @@
     <string name="write_product_price">Введите цену товара</string>
     <string name="write_product_desription">Введите описание товара</string>
     <string name="something_went_wrong">Что-то пошло не так!</string>
-    <string name="description_of_the_alert_that_user_can_not_add_new_product">Здравствуйте! К сожалению, у нашего приложения есть ограничение, о котором мы хотим вам сообщить.  Ограничение состоит в том, что сайт\n\nhttps://dummyjson.com/\n\nс которым работает наше приложение не поддерживает добавление новых товаров. Это означает, что мы не можем предоставить возможность пользователям добавлять новые товары через эту платформу. \n\nМы понимаем, что это может быть неудобно для вас, и приносим извинения за ограничения.</string>
+    <string name="description_of_the_alert_that_user_can_not_add_new_product">Здравствуйте! К сожалению, у нашего приложения есть ограничение, о котором мы хотим вам сообщить. Ограничение состоит в том, что сайт\n\nhttps://dummyjson.com/\n\nс которым работает наше приложение не поддерживает добавление новых товаров. Это означает, что мы не можем предоставить возможность пользователям добавлять новые товары через эту платформу. \n\nМы понимаем, что это может быть неудобно для вас, и приносим извинения за ограничения.</string>
+    <string name="description_of_the_alert_that_user_can_not_buy_product">Здравствуйте! К сожалению, у нашего приложения есть ограничение, о котором мы хотим вам сообщить. Ограничение состоит в том, что сайт\n\nhttps://dummyjson.com/\n\nс которым работает наше приложение не поддерживает проведение денежных транзакций. Это означает, что мы не можем обеспечить возможность пользователям покупать товары через эту платформу. \n\nМы понимаем, что это может быть неудобно для вас, и приносим извинения за ограничения.</string>
     <string name="important_alert">Важное оповещение</string>
     <string name="close">Закрыть</string>
     <string name="one_hundred_dollars">100$</string>
@@ -66,5 +67,11 @@
     <string name="write_CVC">"Введите CVC "</string>
     <string name="added_bank_card">Добавлена банковская карта!</string>
     <string name="CVC">CVC</string>
+    <string name="deleting_product_from_cart">Удаление продукта из корзины</string>
+    <string name="delete_product_from_cart_ask">Вы действительно хотите удалить данный продукт из вашей корзины?</string>
+    <string name="delete">Удалить</string>
+    <string name="cancel">Отменить</string>
+    <string name="yes">Да</string>
+    <string name="bank_card_with_the_same_card_number_exists">Банковская карта с таким номером уже существует!</string>
 
 </resources>

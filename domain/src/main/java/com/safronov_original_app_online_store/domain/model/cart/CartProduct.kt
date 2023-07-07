@@ -8,5 +8,5 @@ data class CartProduct(
     /** [primaryKey] is used to store the identifier in the local SQL database,
      * no need to change its value unless the new value is null
      * and [primaryKey] does not contain any other data */
-    val primaryKey: Int? = null
+    var primaryKey: Int? = null
 )

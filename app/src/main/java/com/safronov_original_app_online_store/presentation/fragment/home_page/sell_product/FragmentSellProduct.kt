@@ -13,8 +13,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.safronov_original_app_online_store.R
 import com.safronov_original_app_online_store.core.extensions.logE
 import com.safronov_original_app_online_store.core.extensions.toastS
-import com.safronov_original_app_online_store.databinding.AddedUserProductToSereverBottomSheetDialogBinding
 import com.safronov_original_app_online_store.databinding.FragmentSellProductBinding
+import com.safronov_original_app_online_store.databinding.ShowUserAppRestrictionsBinding
 import com.safronov_original_app_online_store.domain.model.product.Product
 import com.safronov_original_app_online_store.presentation.fragment.home_page.sell_product.add_product_photo.FragmentAddProductPhoto
 import com.safronov_original_app_online_store.presentation.fragment.home_page.sell_product.add_product_photo.models.SelectedProductPhoto
@@ -116,8 +116,10 @@ class FragmentSellProduct : Fragment() {
 
     private fun showBottomSheetDialogForUserThatItIsNotPossibleToAddNewProduct() {
         val bottomSheetDialog = BottomSheetDialog(requireContext())
-        val bottomSheetBinding = AddedUserProductToSereverBottomSheetDialogBinding.inflate(layoutInflater)
-        bottomSheetBinding.btnGoToProductCategories.setOnClickListener {
+        val bottomSheetBinding = ShowUserAppRestrictionsBinding.inflate(layoutInflater)
+        bottomSheetBinding.tvTitle.text = getString(R.string.important_alert)
+        bottomSheetBinding.tvDescription.text = getString(R.string.description_of_the_alert_that_user_can_not_add_new_product)
+        bottomSheetBinding.btnCancel.setOnClickListener {
             bottomSheetDialog.dismiss()
         }
         bottomSheetDialog.setContentView(bottomSheetBinding.root)

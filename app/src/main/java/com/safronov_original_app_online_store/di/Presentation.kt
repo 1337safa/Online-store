@@ -69,7 +69,9 @@ val presentationDi = module {
     viewModel<FragmentProductPurchaseVM> {
         FragmentProductPurchaseVM(
             bankCardServiceInt = get(),
-            productsServiceInt = get()
+            productsServiceInt = get(),
+            cartProductConverter = get(),
+            cartServiceInt = get()
         )
     }
 

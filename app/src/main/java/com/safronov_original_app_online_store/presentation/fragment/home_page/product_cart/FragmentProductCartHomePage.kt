@@ -77,7 +77,8 @@ class FragmentProductCartHomePage : Fragment(), RcvAllCartItemsInt {
                 findNavController().navigate(
                     R.id.action_fragmentProductCartHomePage_to_fragmentProductPurchase,
                     bundleOf(
-                        FragmentProductPurchase.PRODUCT_ID to cartProduct.productId?.toInt()
+                        FragmentProductPurchase.PRODUCT_ID to cartProduct.productId?.toIntOrNull(),
+                        FragmentProductPurchase.PRIMARY_KEY_OF_CART_PRODUCT to cartProduct.primaryKey
                     )
                 )
             }

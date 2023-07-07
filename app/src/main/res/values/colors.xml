@@ -18,13 +18,14 @@
     <color name="gray">#C3C3C3</color>
     <color name="back_light_gray">#F8F8F8</color>
     <color name="white_transparent_80">#CCFFFFFF</color>
+    <color name="light_gray">#E1E1E1</color>
     <color name="text">#000000</color>
     <color name="text_in_view">#FFFFFF</color>
     <color name="hint">#8A8A8A</color>
     <color name="text_in_search">#787878</color>
     <color name="red">#EA1515</color>
     <color name="green">#74C812</color>
-    <color name="blue">#00BCD4</color>
+    <color name="blue">#03A9F4</color>
     <color name="button">#000000</color>
     <color name="icon_active">#000000</color>
     <color name="icon_no_active">#AAAAAA</color>

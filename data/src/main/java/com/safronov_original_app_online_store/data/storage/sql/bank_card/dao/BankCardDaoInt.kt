@@ -16,4 +16,7 @@ interface BankCardDaoInt {
     @Query("SELECT * FROM ${TableNames.BANK_CARDS_TABLE_NAME}")
     fun getAllUserBankCards(): Flow<List<BankCardEntity>>
 
+    @Query("SELECT * FROM ${TableNames.BANK_CARDS_TABLE_NAME} WHERE cardNumber = :cardNumber")
+    fun getUserBankCardByCardNumber(cardNumber: String): BankCardEntity?
+
 }

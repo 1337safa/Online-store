@@ -19,6 +19,7 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import kotlin.math.exp
 
 @RunWith(AndroidJUnit4::class)
 class BankCardServiceIntImplTest {
@@ -52,14 +53,40 @@ class BankCardServiceIntImplTest {
     @Test
     fun insertUserBankCard() = runBlocking {
         val testBankCard = BankCard(
-            cardNumber = 4787384,
+            cardNumber = "4787384",
             CVC = "9101",
             validity = "23/03"
         )
-        bankCardServiceInt.insertUserBankCard(bankCard = testBankCard)
+        bankCardServiceInt.insertUserBankCard(bankCard = testBankCard, bankCardWithTheSameCardNumberExists = {
+            throw Exception("Bank card with the same card number exists!")
+        }, added = {
+            Assert.assertTrue(true)
+        })
         val result = bankCardServiceInt.getAllUserBankCards()
         val item = result.first().first()
         Assert.assertTrue(testBankCard.cardNumber == item.cardNumber)
+    }
+
+    @Test(expected = Exception::class)
+    fun insertUserBankCard_ShouldThrowExceptionBecauseBankCardWithTheSameCardNumberExists() = runBlocking {
+        val testBankCard = BankCard(
+            cardNumber = "4787384",
+            CVC = "9101",
+            validity = "23/03"
+        )
+        bankCardServiceInt.insertUserBankCard(bankCard = testBankCard, bankCardWithTheSameCardNumberExists = {
+            throw Exception("Bank card with the same card number exists!")
+        }, added = {
+            Assert.assertTrue(true)
+        })
+        val result = bankCardServiceInt.getAllUserBankCards()
+        val item = result.first().first()
+        Assert.assertTrue(testBankCard.cardNumber == item.cardNumber)
+        bankCardServiceInt.insertUserBankCard(bankCard = testBankCard, bankCardWithTheSameCardNumberExists = {
+            throw Exception("Bank card with the same card number exists!")
+        }, added = {
+            Assert.assertTrue(true)
+        })
     }
 
 }

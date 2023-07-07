@@ -1,7 +1,7 @@
 package com.safronov_original_app_online_store.domain.model.bank_card
 
 data class BankCard(
-    val cardNumber: Long?,
+    val cardNumber: String?,
     val validity: String?,
     val CVC: String?,
     /** [primaryKey] is used to store the identifier in the local SQL database,
