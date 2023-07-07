@@ -34,4 +34,8 @@ class CartRepositoryIntImpl(
         storageCartApiInt.deleteCartItem(cartProductEntity = cartProductConverter.convertCartProductToCartProductEntity(cartProduct = cartProduct))
     }
 
+    override suspend fun getAllCartProductEntitiesByProductTitle(productTitle: String): List<CartProduct> {
+        return cartProductConverter.convertListOfCartProductEntityToListOfCartProduct(list = storageCartApiInt.getAllCartProductEntitiesByProductTitle(productTitle = productTitle))
+    }
+
 }

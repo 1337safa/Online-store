@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/fragmentProductDetails"
-        android:name="com.safronov_original_app_online_store.presentation.fragment.home_page.product_details.FragmentProductDetails"
+        android:name="com.safronov_original_app_online_store.presentation.fragment.all_content.product_details.FragmentProductDetails"
         android:label="@string/product_details"
         tools:layout="@layout/fragment_product_details" />
 

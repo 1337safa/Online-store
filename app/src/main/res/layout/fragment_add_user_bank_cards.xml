@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".presentation.fragment.home_page.product_cart.product_purchase.bank_card.FragmentAddUserBankCards"
+    tools:context=".presentation.fragment.all_content.product_cart.product_purchase.bank_card.FragmentAddUserBankCards"
     android:background="@color/back"
     android:orientation="vertical">
 

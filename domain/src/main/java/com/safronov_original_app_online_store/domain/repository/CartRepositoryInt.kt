@@ -9,5 +9,6 @@ interface CartRepositoryInt {
     suspend fun getCartItemById(productId: String): CartProduct?
     suspend fun getAllCartItems(): Flow<List<CartProduct>>
     suspend fun deleteCartItem(cartProduct: CartProduct)
+    suspend fun getAllCartProductEntitiesByProductTitle(productTitle: String): List<CartProduct>
 
 }

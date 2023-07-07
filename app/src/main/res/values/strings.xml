@@ -73,5 +73,6 @@
     <string name="cancel">Отменить</string>
     <string name="yes">Да</string>
     <string name="bank_card_with_the_same_card_number_exists">Банковская карта с таким номером уже существует!</string>
+    <string name="please_coose_cank_card">Пожалуйста выберете банковскую карту!</string>
 
 </resources>

@@ -9,5 +9,6 @@ interface StorageCartApiInt {
     suspend fun getCartItemById(productId: String): CartProductEntity?
     suspend fun getAllCartItems(): Flow<List<CartProductEntity>>?
     suspend fun deleteCartItem(cartProductEntity: CartProductEntity)
+    suspend fun getAllCartProductEntitiesByProductTitle(productTitle: String): List<CartProductEntity>
 
 }

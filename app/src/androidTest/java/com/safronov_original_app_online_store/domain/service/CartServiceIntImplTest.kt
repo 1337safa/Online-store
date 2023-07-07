@@ -86,4 +86,18 @@ class CartServiceIntImplTest {
         Assert.assertTrue(secondResult.isEmpty())
     }
 
+    @Test
+    fun getAllCartProductEntitiesByProductTitle() = runBlocking {
+        val cartProduct = CartProduct(
+            productId = "something",
+            price = 4,
+            thumbnail = "url...",
+            title = "hello, world!",
+            primaryKey = null
+        )
+        cartServiceInt.insertProductToCart(cartProduct = cartProduct)
+        val allItems = cartServiceInt.getAllCartProductEntitiesByProductTitle(productTitle = "hello, world")
+        Assert.assertTrue(allItems.first().title == cartProduct.title)
+    }
+
 }

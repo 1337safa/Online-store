@@ -42,4 +42,12 @@ class StorageCartApiIntImpl(
         }
     }
 
+    override suspend fun getAllCartProductEntitiesByProductTitle(productTitle: String): List<CartProductEntity> {
+        try {
+            return cartProductDaoInt.getAllCartProductEntities(productTitle = productTitle)
+        } catch (e: Exception) {
+            throw StorageException("Storage exception when getting all cart items by product title, ${e.message}", e)
+        }
+    }
+
 }

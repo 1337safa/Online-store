@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.fragment.home_page.sell_product.add_product_photo.FragmentAddProductPhoto">
+    tools:context=".presentation.fragment.all_content.sell_product.add_product_photo.FragmentAddProductPhoto">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"

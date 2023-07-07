@@ -20,6 +20,9 @@ interface CartProductDaoInt {
     @Query("SELECT * FROM ${TableNames.CART_ITEMS_TABLE_NAME} WHERE productId = :productId")
     fun getCartItemById(productId: String): CartProductEntity?
 
+    @Query("SELECT * FROM ${TableNames.CART_ITEMS_TABLE_NAME} WHERE title LIKE '%' || :productTitle || '%'")
+    fun getAllCartProductEntities(productTitle: String): List<CartProductEntity>
+
     @Delete
     fun deleteCartItem(cartProductEntity: CartProductEntity)
 

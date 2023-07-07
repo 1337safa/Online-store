@@ -27,4 +27,8 @@ class CartServiceIntImpl(
         cartRepositoryInt.deleteCartItem(cartProduct = cartProduct)
     }
 
+    override suspend fun getAllCartProductEntitiesByProductTitle(productTitle: String): List<CartProduct> {
+        return cartRepositoryInt.getAllCartProductEntitiesByProductTitle(productTitle = productTitle)
+    }
+
 }
