@@ -126,10 +126,28 @@ class FragmentProductPurchase : Fragment(), RcvBankCardsInt {
     private fun btnBuyProductListener() {
         binding.btnBuyProduct.setOnClickListener {
             val currentBankCard = fragmentProductPurchaseVM.getSelectedBankCard()
-            if (currentBankCard != null) {
+            val userDisplayName = binding.edtvUserDisplayName.text.toString().trim()
+            val userPhoneNumber = binding.edtvUserPhoneNumber.text.toString().trim()
+            val userCity = binding.edtvUserCity.text.toString().trim()
+            val userPostcode = binding.edtvUserPostcode.text.toString().trim()
+            if (currentBankCard != null && userDisplayName.isNotEmpty() && userPhoneNumber.isNotEmpty() && userCity.isNotEmpty() && userPostcode.isNotEmpty()) {
                 showBottomSheetDialogForUserThatItIsNotPossibleToBuyProduct()
             } else {
-                toastS(getString(R.string.please_coose_cank_card))
+                if (currentBankCard == null) {
+                    toastS(getString(R.string.please_coose_cank_card))
+                }
+                if (userDisplayName.isEmpty()) {
+                    binding.edtvUserDisplayName.setError(getString(R.string.please_write_display_name))
+                }
+                if (userPhoneNumber.isEmpty()) {
+                    binding.edtvUserPhoneNumber.setError(getString(R.string.write_phone_number))
+                }
+                if (userCity.isEmpty()) {
+                    binding.edtvUserCity.setError(getString(R.string.write_city))
+                }
+                if (userPostcode.isEmpty()) {
+                    binding.edtvUserPostcode.setError(getString(R.string.write_postcode))
+                }
             }
         }
     }

@@ -8,5 +8,6 @@
     <include app:graph="@navigation/selected_product_history" />
     <include app:graph="@navigation/sell_product_graph" />
     <include app:graph="@navigation/product_cart_graph" />
+    <include app:graph="@navigation/user_profile_graph" />
 
 </navigation>

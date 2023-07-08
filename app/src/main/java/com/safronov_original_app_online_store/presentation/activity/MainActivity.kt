@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity(), CommunicationWithBottomNavView {
     override fun hideBadgeForCartGraph() {
         try {
             val badge = binding.allContentGraphNavigation.getBadge(R.id.product_cart_graph)
-            badge?.number = 0`
+            badge?.number = 0
             badge?.isVisible = false
         } catch (e: Exception) {
             logE("${this.javaClass.name} -> ${object {}.javaClass.enclosingMethod?.name}, ${e.message}")

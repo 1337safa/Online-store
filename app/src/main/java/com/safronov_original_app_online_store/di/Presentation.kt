@@ -10,6 +10,7 @@ import com.safronov_original_app_online_store.presentation.fragment.all_content.
 import com.safronov_original_app_online_store.presentation.fragment.all_content.selected_product_history.view_model.FragmentSelectedProductHistoryViewModel
 import com.safronov_original_app_online_store.presentation.fragment.all_content.sell_product.add_product_photo.view_model.FragmentAddProductPhotoVM
 import com.safronov_original_app_online_store.presentation.fragment.all_content.sell_product.view_model.FragmentSellProductVM
+import com.safronov_original_app_online_store.presentation.fragment.all_content.user_profile.user_bank_cards.view_model.FragmentUserBankCardsVM
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -75,6 +76,12 @@ val presentationDi = module {
 
     viewModel<FragmentAddUserBankCardsVM> {
         FragmentAddUserBankCardsVM(
+            bankCardsServiceInt = get()
+        )
+    }
+
+    viewModel<FragmentUserBankCardsVM> {
+        FragmentUserBankCardsVM(
             bankCardsServiceInt = get()
         )
     }

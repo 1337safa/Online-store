@@ -74,5 +74,20 @@
     <string name="yes">Да</string>
     <string name="bank_card_with_the_same_card_number_exists">Банковская карта с таким номером уже существует!</string>
     <string name="please_coose_cank_card">Пожалуйста выберете банковскую карту!</string>
+    <string name="delivery_address">Адрес для доставки</string>
+    <string name="your_name_and_surname">Фамилия и имя покупателя</string>
+    <string name="phone_number">Номер телефона</string>
+    <string name="city">Город</string>
+    <string name="postcode">Почтовый индекс</string>
+    <string name="please_write_display_name">Введите имя и фамилию</string>
+    <string name="write_phone_number">Введите номер телефона</string>
+    <string name="write_city">Введите город для доставки</string>
+    <string name="write_postcode">Введите почтовый индекс</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="bank_cards">Банковские карты</string>
+    <string name="your_profile">Ваш профиль</string>
+    <string name="your_bank_cards">Ваши банковские карты</string>
+    <string name="adding_bank_card">Добавление банковской карты</string>
 
 </resources>

@@ -167,6 +167,119 @@
                     tools:listitem="@layout/bank_card_rcv_item"
                     app:layout_constraintTop_toBottomOf="@+id/tv_show_user_bank_card" />
 
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_show_user_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/margin_small"
+                    android:paddingEnd="8dp"
+                    android:layout_marginTop="@dimen/margin_normal"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:maxLines="2"
+                    android:text="@string/delivery_address"
+                    android:theme="@style/title_style"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rcv_user_bank_cards" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/back"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_show_user_address"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:paddingStart="@dimen/margin_small"
+                    android:paddingEnd="@dimen/margin_small">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tlayout_user_display_name"
+                        style="@style/text_input_layout_style"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:background="@color/back"
+                        app:suffixTextColor="@color/gray">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edtv_user_display_name"
+                            style="@style/edtv_style"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/back"
+                            android:hint="@string/your_name_and_surname"
+                            android:inputType="textShortMessage"
+                            android:textColor="@color/text" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tlayout_user_phone_number"
+                        style="@style/text_input_layout_style"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:background="@color/back"
+                        app:suffixTextColor="@color/gray">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edtv_user_phone_number"
+                            style="@style/edtv_style"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/back"
+                            android:hint="@string/phone_number"
+                            android:inputType="number|text"
+                            android:textColor="@color/text" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tlayout_user_city"
+                        style="@style/text_input_layout_style"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:background="@color/back"
+                        app:suffixTextColor="@color/gray">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edtv_user_city"
+                            style="@style/edtv_style"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/back"
+                            android:hint="@string/city"
+                            android:inputType="text"
+                            android:textColor="@color/text" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tlayout_user_postcode"
+                        style="@style/text_input_layout_style"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:background="@color/back"
+                        app:suffixTextColor="@color/gray">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edtv_user_postcode"
+                            style="@style/edtv_style"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/back"
+                            android:hint="@string/postcode"
+                            android:inputType="text"
+                            android:textColor="@color/text" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.core.widget.NestedScrollView>
