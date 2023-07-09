@@ -45,7 +45,7 @@
     <string name="write_product_desription">Enter product description</string>
     <string name="something_went_wrong">Something went wrong!</string>
     <string name="description_of_the_alert_that_user_can_not_add_new_product">Hello! Unfortunately, our application has a limitation that we want to inform you about. The limitation is that the site\n\nhttps://dummyjson.com/\n\nwhich our application works with does not support adding new products. This means that we cannot enable users to add new products through this platform. \n\nWe understand that this may be inconvenient for you, and we apologize for the restrictions.</string>
-    <string name="description_of_the_alert_that_user_can_not_buy_product">Hello! Unfortunately, our application has a delay that we want to inform you. The limitation is that the site\n\nhttps://dummyjson.com/\n\nworks with items, our application does not support money transactions. This means that users do not have the option to purchase products through this installation. \n\nWe understand that this may be inconvenient for you, and we apologize for the promise.</string>
+    <string name="description_of_the_alert_that_user_can_not_buy_product">Hello! Unfortunately, our application has a delay that we want to inform you. The limitation is that the site\n\nhttps://dummyjson.com/\n\nwhich our application works with does not support money transactions. This means that users do not have the option to purchase products through this installation. \n\nWe understand that this may be inconvenient for you, and we apologize for the promise.</string>
     <string name="important_alert">Important note</string>
     <string name="close">Close</string>
     <string name="one_hundred_dollars">100$</string>
