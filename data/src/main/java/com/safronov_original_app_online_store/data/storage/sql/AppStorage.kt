@@ -17,7 +17,11 @@ abstract class AppStorage(): RoomDatabase() {
     abstract fun getBankCardDaoInt(): BankCardDaoInt
 
     companion object {
+
+        /**
+         * This constant variable denotes the base name of the local SQL database */
         const val BASE_APP_STORAGE_NAME = "Online-store database.db"
+
     }
 
 }
