@@ -54,7 +54,7 @@ class FragmentUserBankCards : Fragment() {
             logE("${this.javaClass.name} -> ${object {}.javaClass.enclosingMethod?.name}, ${e.message}")
         }
     }
-
+    
     private fun tvAddBankCardListener() {
         binding.tvAddBankCard.setOnClickListener {
             findNavController().navigate(R.id.action_fragmentUserBankCards_to_fragmentAddUserBankCards2)
