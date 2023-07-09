@@ -7,27 +7,28 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import com.safronov_original_app_online_store.R
+import com.safronov_original_app_online_store.core.extensions.logD
 import com.safronov_original_app_online_store.core.extensions.logE
 import com.safronov_original_app_online_store.core.extensions.toastS
-import com.safronov_original_app_online_store.databinding.FragmentAddUserBankCardsBinding
+import com.safronov_original_app_online_store.databinding.FragmentAddUserBankCardBinding
 import com.safronov_original_app_online_store.domain.model.bank_card.BankCard
-import com.safronov_original_app_online_store.presentation.fragment.all_content.product_cart.product_purchase.bank_card.view_model.FragmentAddUserBankCardsVM
+import com.safronov_original_app_online_store.presentation.fragment.all_content.product_cart.product_purchase.bank_card.view_model.FragmentAddUserBankCardVM
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class FragmentAddUserBankCards : Fragment() {
+class FragmentAddUserBankCard : Fragment() {
 
-    private var _binding: FragmentAddUserBankCardsBinding? = null
+    private var _binding: FragmentAddUserBankCardBinding? = null
     private val binding get() = _binding!!
 
-    private val fragmentAddUserBankCardVM by viewModel<FragmentAddUserBankCardsVM>()
+    private val fragmentAddUserBankCardVM by viewModel<FragmentAddUserBankCardVM>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentAddUserBankCardsBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentAddUserBankCardBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
@@ -56,7 +57,9 @@ class FragmentAddUserBankCards : Fragment() {
                         binding.edtvCardNumber.setError(getString(R.string.bank_card_with_the_same_card_number_exists))
                     }
                 }, added = {
-                    toastS(getString(R.string.added_bank_card))
+                    viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
+                        toastS(getString(R.string.added_bank_card))
+                    }
                 })
             } else {
                 if (bankCardNumber.isEmpty()) {
@@ -79,7 +82,7 @@ class FragmentAddUserBankCards : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance() = FragmentAddUserBankCards()
+        fun newInstance() = FragmentAddUserBankCard()
     }
 
 }

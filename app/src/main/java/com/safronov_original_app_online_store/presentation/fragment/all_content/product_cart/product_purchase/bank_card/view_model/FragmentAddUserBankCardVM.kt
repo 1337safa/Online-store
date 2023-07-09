@@ -2,13 +2,14 @@ package com.safronov_original_app_online_store.presentation.fragment.all_content
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.safronov_original_app_online_store.core.extensions.logD
 import com.safronov_original_app_online_store.core.extensions.logE
 import com.safronov_original_app_online_store.domain.model.bank_card.BankCard
 import com.safronov_original_app_online_store.domain.service.bank_card.BankCardServiceInt
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class FragmentAddUserBankCardsVM(
+class FragmentAddUserBankCardVM(
     private val bankCardsServiceInt: BankCardServiceInt
 ): ViewModel() {
 
