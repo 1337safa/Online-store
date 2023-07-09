@@ -4,7 +4,7 @@ The application works with [DummyJSON](https://dummyjson.com/) to show products
 
 _____
 ## Video presentation of the home page
-https://github.com/1337safa/Online-store/assets/122071062/4897c03d-cfa9-454d-a702-0f5a0bc41495
+https://github.com/1337safa/Online-store/assets/122071062/5d5bc02a-55d7-45a7-a16e-1353bf1bdc78
 
 Available actions: 
 * View all products from server
@@ -14,14 +14,14 @@ Available actions:
 
 _____
 ## Video screen presentation that shows full product information
-https://github.com/1337safa/Online-store/assets/122071062/7983d65b-df2b-4587-a8c6-43a2794fc114
+https://github.com/1337safa/Online-store/assets/122071062/0b26acdd-97b4-4b29-9daa-eb709af02a4a
 
 Available actions: 
 * Adding an product to the cart
 
 _____
 ## Video screen presentation for product sale
-https://github.com/1337safa/Online-store/assets/122071062/9588f552-3a48-4d7a-9a53-f0c5263188f6
+https://github.com/1337safa/Online-store/assets/122071062/60686bf3-52e5-4eee-bb2d-375927f3380d
 
 Available actions:
 * Product photo selection
@@ -30,7 +30,7 @@ Available actions:
 
 _____
 ## Video presentation of the screen showing all the product added to the cart
-https://github.com/1337safa/Online-store/assets/122071062/161d0c12-c3f3-4b13-9d85-e2695c410d89
+https://github.com/1337safa/Online-store/assets/122071062/e195623e-5149-44f5-9ce1-798204ce233e
 
 Available actions:
 * Adding a bank card
@@ -39,7 +39,7 @@ Available actions:
 
 _____
 ## Video presentation of the screen displaying information about the user
-https://github.com/1337safa/Online-store/assets/122071062/050d7d6a-a589-4362-bf30-d73085281424
+https://github.com/1337safa/Online-store/assets/122071062/81a44f4b-b88f-49e6-963c-ed5f71c7ddd4
 
 Available actions:
 * View all bank cards
